@@ -1,98 +1,443 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nripendu's Portfolio</title>
+    <title>Nripendu Sharma | Product Consultant</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        accent: {
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                        }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 20s linear infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background-color: #f8fafc;
+            color: #334155;
+            overflow-x: hidden;
         }
         
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            max-width: 800px;
-            width: 100%;
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .premium-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
         }
         
-        h1 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 2.5em;
-        }
-        
-        .subtitle {
-            color: #666;
-            font-size: 1.1em;
-            margin-bottom: 30px;
-        }
-        
-        .description {
-            font-size: 1.1em;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 30px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .cta-button:hover {
+        .premium-card:hover {
+            border-color: rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            color: #999;
-            font-size: 0.9em;
+        .text-gradient-accent {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 350px; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(37, 99, 235, 0.08);
+            color: #1d4ed8;
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .profile-blob {
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            animation: morph 8s ease-in-out infinite;
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+            67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+        }
+
+        .chat-bubble-enter { 
+            animation: bubbleEnter 0.3s ease-out forwards; 
+        }
+        @keyframes bubbleEnter {
+            from { opacity: 0; transform: translateY(10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .typing-dot { 
+            animation: typingBounce 1.4s infinite ease-in-out both; 
+            background-color: #94a3b8;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        .chat-open {
+            transform: scale(1) !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>👋 Welcome!</h1>
-        <p class="subtitle">This is Nripendu's Portfolio</p>
-        
-        <p class="description">
-            Your portfolio website is now live on GitHub Pages! 
-            This is a placeholder page. You can customize this content to showcase your projects, 
-            skills, and experience.
-        </p>
-        
-        <a href="https://github.com/nripendusharma" class="cta-button">Visit My GitHub</a>
-        
-        <div class="footer">
-            <p>&copy; 2026 Nripendu's Portfolio. Hosted on GitHub Pages.</p>
+<body class="antialiased selection:bg-accent-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-r from-accent-500 to-accent-600 flex items-center justify-center text-white font-bold">NS</div>
+                    <div class="flex-shrink-0 font-bold text-lg tracking-tight text-slate-900">
+                        NS<span class="text-accent-500">.</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 text-sm font-semibold">
+                        <a href="#about" class="text-slate-600 hover:text-accent-500 transition-colors">Philosophy</a>
+                        <a href="#impact" class="text-slate-600 hover:text-accent-500 transition-colors">Impact</a>
+                        <a href="#cases" class="text-slate-600 hover:text-accent-500 transition-colors">Case Studies</a>
+                        <a href="#ai" class="text-slate-600 hover:text-accent-500 transition-colors">AI & Data</a>
+                        <a href="#experience" class="text-slate-600 hover:text-accent-500 transition-colors">Journey</a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="#contact" class="hidden md:inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-accent-500 hover:bg-accent-600 transition-all">
+                        Let's Talk
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
+        <div class="absolute top-0 right-0 -z-10 translate-x-1/3 -translate-y-1/4 opacity-40">
+            <div class="w-[600px] h-[600px] rounded-full border border-slate-200 animate-spin-slow flex items-center justify-center">
+                <div class="w-[400px] h-[400px] rounded-full border border-slate-200 flex items-center justify-center">
+                    <div class="w-[200px] h-[200px] rounded-full border border-accent-500/20 bg-accent-500/5 blur-3xl"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-8">
+                <!-- Text Content -->
+                <div class="flex-1 max-w-3xl reveal">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-500/10 border border-accent-500/20 text-accent-600 text-xs font-bold tracking-wide uppercase mb-6">
+                        <span class="w-2 h-2 rounded-full bg-accent-500 animate-pulse"></span>
+                        Product Consultant
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight text-gradient leading-[1.1] mb-6">
+                        Translating complex operational chaos into <span class="text-gradient-accent">measurable business outcomes.</span>
+                    </h1>
+                    <p class="text-lg lg:text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl">
+                        I build enterprise B2B and GovTech platforms that scale. From unlocking <strong class="text-slate-900">$50M in government funding</strong> via operational intelligence to driving <strong class="text-slate-900">$7M in ARR</strong> growth.
+                    </p>
+                    <div class="flex flex-wrap gap-4 items-center">
+                        <button onclick="document.getElementById('cases').scrollIntoView()" class="px-8 py-3.5 rounded-full bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-all">
+                            View Case Studies
+                        </button>
+                        <a href="https://substack.com" target="_blank" class="px-6 py-3.5 rounded-full premium-card text-slate-700 font-semibold hover:text-accent-500 flex items-center gap-2">
+                            Substack ↗
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="px-6 py-3.5 rounded-full premium-card text-slate-700 font-semibold hover:text-accent-500 flex items-center gap-2">
+                            LinkedIn ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Profile Image -->
+                <div class="flex-1 flex justify-center lg:justify-end w-full reveal">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-blue-300/20 profile-blob transform scale-105"></div>
+                        <div class="absolute inset-0 w-full h-full rounded-full bg-gradient-to-r from-accent-500 to-accent-600 flex items-center justify-center text-white text-6xl font-bold">
+                            NS
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Strengths Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 reveal">
+                <div class="premium-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-accent-500 mb-6 border border-blue-100">
+                        ⚡
+                    </div>
+                    <h3 class="text-slate-900 font-bold text-lg mb-3">0→1 Product Launches</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Expertise in discovering field realities, defining MVPs, and driving adoption across thousands of distributed users.</p>
+                </div>
+                <div class="premium-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6 border border-purple-100">
+                        🤖
+                    </div>
+                    <h3 class="text-slate-900 font-bold text-lg mb-3">AI & Data Products</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Leveraging RAG pipelines, LLMs, and anomaly detection to build decision-support systems.</p>
+                </div>
+                <div class="premium-card p-8 rounded-2xl">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-6 border border-emerald-100">
+                        👥
+                    </div>
+                    <h3 class="text-slate-900 font-bold text-lg mb-3">Stakeholder Complexity</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Navigating high-stakes environments with C-level leadership and cross-functional teams.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Dashboard Section -->
+    <section id="impact" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Impact Dashboard</h2>
+                <p class="text-slate-600 text-lg">Data-driven outcomes across GovTech and HRTech.</p>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 reveal">
+                <div class="premium-card p-6 rounded-2xl border-l-4 border-l-accent-500">
+                    <div class="text-sm text-slate-500 mb-1 font-mono font-semibold">Revenue Uplift</div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-slate-900">$7M<span class="text-lg text-accent-500 ml-1">ARR</span></div>
+                </div>
+                <div class="premium-card p-6 rounded-2xl">
+                    <div class="text-sm text-slate-500 mb-1 font-mono font-semibold">Funding Unlocked</div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-slate-900">$50M</div>
+                </div>
+                <div class="premium-card p-6 rounded-2xl">
+                    <div class="text-sm text-slate-500 mb-1 font-mono font-semibold">Turnaround Time ↓</div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-slate-900">80%</div>
+                </div>
+                <div class="premium-card p-6 rounded-2xl">
+                    <div class="text-sm text-slate-500 mb-1 font-mono font-semibold">CSAT Lift ↑</div>
+                    <div class="text-3xl md:text-4xl font-extrabold text-slate-900">35<span class="text-lg text-slate-400 ml-1">%</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="cases" class="py-24 relative bg-slate-100/50 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Featured Case Studies</h2>
+                <p class="text-slate-600 text-lg max-w-2xl">Deep dives into product strategy, discovery, and execution.</p>
+            </div>
+
+            <div class="premium-card p-8 rounded-2xl reveal">
+                <h3 class="text-2xl font-bold text-slate-900 mb-4">UPPCL: $7M GovTech MVP</h3>
+                <p class="text-slate-700 mb-4 leading-relaxed">
+                    Led the transformation of fragmented, manual field operations into a cohesive operational intelligence platform. Shipped an enforcement MVP to 8,000+ field officers in 6 months.
+                </p>
+                <div class="flex gap-4 text-sm">
+                    <span class="tech-badge">Product Strategy</span>
+                    <span class="tech-badge">User Research</span>
+                    <span class="tech-badge">MVP Launch</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Product Management Expertise -->
+    <section id="ai" class="py-24 relative bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="mb-16 text-center reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">AI & Data Product Architecture</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto text-lg">Experience designing and shipping practical AI implementations including RAG pipelines and agentic systems.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+                <div class="premium-card p-8 rounded-2xl">
+                    <div class="text-sm font-mono font-bold text-accent-600 mb-4">01</div>
+                    <h4 class="text-slate-900 font-bold text-lg mb-3">RAG & Context Engineering</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Structuring unstructured enterprise data for optimal retrieval and LLM context windows.</p>
+                </div>
+                <div class="premium-card p-8 rounded-2xl">
+                    <div class="text-sm font-mono font-bold text-accent-600 mb-4">02</div>
+                    <h4 class="text-slate-900 font-bold text-lg mb-3">Agentic AI & MCP</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Designing systems where AI models securely utilize external tools to execute workflows.</p>
+                </div>
+                <div class="premium-card p-8 rounded-2xl">
+                    <div class="text-sm font-mono font-bold text-accent-600 mb-4">03</div>
+                    <h4 class="text-slate-900 font-bold text-lg mb-3">Prompt Evaluation</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Moving beyond testing to rigorous evaluation frameworks for deterministic behavior.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Timeline -->
+    <section id="experience" class="py-24 relative bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="mb-12 reveal">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Product Journey</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+                <div class="premium-card p-8 rounded-2xl">
+                    <div class="text-xs text-accent-600 font-mono font-bold mb-2">2024 - PRESENT</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Product Consultant</h3>
+                    <p class="text-slate-600 text-sm">UPPCL (GovTech) - Scaling data-driven electricity theft detection across 8K+ field officers.</p>
+                </div>
+                <div class="premium-card p-8 rounded-2xl">
+                    <div class="text-xs text-slate-500 font-mono font-bold mb-2">2022 - 2023</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Product Manager</h3>
+                    <p class="text-slate-600 text-sm">Talview (HRTech) - Owned end-to-end candidate experience for 100k+ users globally.</p>
+                </div>
+                <div class="premium-card p-8 rounded-2xl">
+                    <div class="text-xs text-slate-500 font-mono font-bold mb-2">2018 - 2022</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Product Manager</h3>
+                    <p class="text-slate-600 text-sm">Magnus IT Solutions (GovTech) - Turned around DMS across 14+ state governments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <section id="contact" class="py-24 relative bg-slate-900 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-6 text-center reveal">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">Ready to build what's next?</h2>
+            <p class="text-slate-400 mb-10 text-lg leading-relaxed max-w-2xl mx-auto">Looking for a Product Manager or AI Product Builder who can navigate ambiguity, align stakeholders, and ship impact.</p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="mailto:nripendusharma@outlook.com" class="px-8 py-4 w-full sm:w-auto rounded-full bg-accent-500 text-white font-bold hover:bg-accent-600 transition-all">
+                    Get in Touch
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="px-8 py-4 w-full sm:w-auto rounded-full border border-slate-700 bg-slate-800/50 text-white font-semibold hover:bg-slate-700 transition-all">
+                    LinkedIn ↗
+                </a>
+            </div>
+            
+            <div class="mt-20 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2026 Nripendu Sharma. All rights reserved.</p>
+                <p>Lucknow, India</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Javascript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+            
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('active');
+                });
+            }, revealOptions);
+            
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-sm');
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                } else {
+                    navbar.classList.remove('shadow-sm');
+                    navbar.style.background = 'rgba(255, 255, 255, 0.85)';
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
