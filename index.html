@@ -146,6 +146,13 @@
             67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
         }
 
+        .company-logo {
+            height: 50px;
+            width: auto;
+            display: flex;
+            align-items: center;
+        }
+
         .chat-bubble-enter { 
             animation: bubbleEnter 0.3s ease-out forwards; 
         }
@@ -193,7 +200,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a href="#contact" class="hidden md:inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-accent-500 hover:bg-accent-600 transition-colors">
+                    <a href="#contact" class="hidden md:inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-accent-500 hover:bg-accent-600 transition-all">
                         Let's Talk
                     </a>
                 </div>
@@ -223,10 +230,10 @@
                         Translating complex operational chaos into <span class="text-gradient-accent">measurable business outcomes.</span>
                     </h1>
                     <p class="text-lg lg:text-xl text-slate-600 mb-10 leading-relaxed max-w-2xl">
-                        I build enterprise B2B and GovTech platforms that scale. From unlocking <strong class="text-slate-900">$50M in government funding</strong> via operational intelligence to transforming recruitment at scale with AI.
+                        I build enterprise B2B and GovTech platforms that scale. From unlocking <strong class="text-slate-900">$50M in government funding</strong> via operational intelligence to driving operational efficiency across distributed teams.
                     </p>
                     <div class="flex flex-wrap gap-4 items-center">
-                        <button onclick="document.getElementById('cases').scrollIntoView()" class="px-8 py-3.5 rounded-full bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-all duration-200">
+                        <button onclick="document.getElementById('cases').scrollIntoView()" class="px-8 py-3.5 rounded-full bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-all">
                             View Case Studies
                         </button>
                         <a href="https://substack.com" target="_blank" class="px-6 py-3.5 rounded-full premium-card text-slate-700 font-semibold hover:text-accent-500 flex items-center gap-2">
@@ -242,7 +249,26 @@
                 <div class="flex-1 flex justify-center lg:justify-end w-full reveal">
                     <div class="relative w-64 h-64 md:w-80 md:h-80">
                         <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-blue-300/20 profile-blob transform scale-105"></div>
-                        <img src="images/profile-photo.jpg" alt="Nripendu Sharma" class="absolute inset-0 w-full h-full rounded-full object-cover">
+                        <svg class="absolute inset-0 w-full h-full rounded-full object-cover" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+                            <defs>
+                                <linearGradient id="bgGradientProfile" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#e0e7ff;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#f3e8ff;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="skinGradientProfile" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#f4a460;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#d2691e;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <rect width="400" height="400" fill="url(#bgGradientProfile)"/>
+                            <circle cx="200" cy="130" r="70" fill="url(#skinGradientProfile)"/>
+                            <path d="M 130 130 Q 130 50 200 50 Q 270 50 270 130" fill="#2c1810"/>
+                            <circle cx="175" cy="115" r="8" fill="#333"/>
+                            <circle cx="225" cy="115" r="8" fill="#333"/>
+                            <path d="M 185 145 Q 200 160 215 145" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <ellipse cx="200" cy="270" rx="90" ry="110" fill="#3b82f6"/>
+                            <polygon points="140,180 200,210 260,180 200,195" fill="#2563eb"/>
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -315,7 +341,7 @@
             <div class="premium-card p-8 rounded-2xl reveal">
                 <h3 class="text-2xl font-bold text-slate-900 mb-4">UPPCL: $7M GovTech MVP</h3>
                 <p class="text-slate-700 mb-4 leading-relaxed">
-                    Led the transformation of fragmented, manual field operations into a cohesive operational intelligence platform. Shipped an enforcement MVP to 8,000+ field officers in 6 months—now driving $7M ARR and unlocking $50M in government funding.
+                    Led the transformation of fragmented, manual field operations into a cohesive operational intelligence platform. Shipped an enforcement MVP to 8,000+ field officers in 6 months.
                 </p>
                 <div class="flex gap-4 text-sm">
                     <span class="tech-badge">Product Strategy</span>
@@ -362,25 +388,60 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
+                <!-- UPPCL Card -->
                 <div class="premium-card p-8 rounded-2xl">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="images/uppcl-logo.png" alt="UPPCL" class="h-12 w-auto object-contain">
+                    <div class="flex items-center gap-3 mb-4 h-12">
+                        <svg class="company-logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="uppcl-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="25" fill="url(#uppcl-gradient)"/>
+                            <polygon points="50,35 55,48 45,48 50,65 40,45 60,45" fill="white"/>
+                            <text x="85" y="60" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">UPPCL</text>
+                        </svg>
                     </div>
                     <div class="text-xs text-accent-600 font-mono font-bold mb-2">2024 - PRESENT</div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Product Consultant</h3>
                     <p class="text-slate-600 text-sm">UPPCL (GovTech) - Scaling data-driven electricity theft detection across 8K+ field officers.</p>
                 </div>
+
+                <!-- Talview Card -->
                 <div class="premium-card p-8 rounded-2xl">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="images/talview-logo.png" alt="Talview" class="h-12 w-auto object-contain">
+                    <div class="flex items-center gap-3 mb-4 h-12">
+                        <svg class="company-logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="talview-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="35" r="10" fill="url(#talview-gradient)"/>
+                            <circle cx="50" cy="50" r="10" fill="url(#talview-gradient)"/>
+                            <circle cx="50" cy="65" r="10" fill="url(#talview-gradient)"/>
+                            <text x="75" y="60" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1d4ed8">Talview</text>
+                        </svg>
                     </div>
                     <div class="text-xs text-slate-500 font-mono font-bold mb-2">2022 - 2023</div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Product Manager</h3>
                     <p class="text-slate-600 text-sm">Talview (HRTech) - Owned end-to-end candidate experience for 100k+ users globally.</p>
                 </div>
+
+                <!-- Magnus Card -->
                 <div class="premium-card p-8 rounded-2xl">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="images/magnus-logo.png" alt="Magnus" class="h-12 w-auto object-contain">
+                    <div class="flex items-center gap-3 mb-4 h-12">
+                        <svg class="company-logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="magnus-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M 40 65 L 50 35 L 60 65 L 70 40 L 80 65" stroke="url(#magnus-gradient)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            <text x="95" y="60" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#059669">Magnus</text>
+                        </svg>
                     </div>
                     <div class="text-xs text-slate-500 font-mono font-bold mb-2">2018 - 2022</div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Product Manager</h3>
@@ -394,7 +455,7 @@
     <section id="contact" class="py-24 relative bg-slate-900 border-t border-slate-800">
         <div class="max-w-4xl mx-auto px-6 text-center reveal">
             <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">Ready to build what's next?</h2>
-            <p class="text-slate-400 mb-10 text-lg leading-relaxed max-w-2xl mx-auto">Looking for a Product Manager or AI Product Builder who can navigate ambiguity, align stakeholders, and ship products that move the needle. Let's talk.
+            <p class="text-slate-400 mb-10 text-lg leading-relaxed max-w-2xl mx-auto">Looking for a Product Manager or AI Product Builder who can navigate ambiguity, align stakeholders, and ship outcomes?
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
