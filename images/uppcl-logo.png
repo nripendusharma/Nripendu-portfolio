@@ -1,1 +1,13 @@
-iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==
+<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="100" fill="#f8f8f8" rx="8"/>
+  <circle cx="50" cy="50" r="25" fill="url(#logoGrad1)"/>
+  <polygon points="50,35 55,48 45,48 50,65 40,45 60,45" fill="white"/>
+  <text x="85" y="45" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">UPPCL</text>
+  <text x="85" y="65" font-family="Arial, sans-serif" font-size="10" fill="#666">GovTech</text>
+</svg>
