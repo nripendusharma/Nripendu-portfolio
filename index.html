@@ -153,6 +153,12 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         .chart-container { position: relative; width: 100%; max-width: 100%; margin: 0 auto; height: 300px; max-height: 400px; }
+        
+        /* Modal Transitions */
+        .modal-enter { opacity: 0; }
+        .modal-enter-active { opacity: 1; transition: opacity 300ms ease-out; }
+        .modal-exit { opacity: 1; }
+        .modal-exit-active { opacity: 0; transition: opacity 300ms ease-in; }
     </style>
 </head>
 <body class="antialiased selection:bg-accent-200 dark:selection:bg-accent-500 selection:text-gray-900 dark:selection:text-white transition-colors duration-300">
@@ -191,8 +197,8 @@
                         <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                     </button>
                     
-                    <a href="#contact" class="hidden md:inline-flex items-center justify-center px-4 py-2 border border-accent-200 dark:border-accent-500/50 text-sm font-medium rounded text-accent-700 dark:text-accent-400 bg-accent-50 dark:bg-accent-500/10 hover:bg-accent-100 dark:hover:bg-accent-500 dark:hover:text-white transition-all shadow-sm dark:shadow-[0_0_15px_rgba(14,165,233,0.2)]" data-cursor="Contact">
-                        Let's Talk
+                    <a href="mailto:nripendusharma@outlook.com?subject=Booking a Call via Portfolio" class="hidden md:inline-flex items-center justify-center px-4 py-2 border border-accent-200 dark:border-accent-500/50 text-sm font-medium rounded text-accent-700 dark:text-accent-400 bg-accent-50 dark:bg-accent-500/10 hover:bg-accent-100 dark:hover:bg-accent-500 dark:hover:text-white transition-all shadow-sm dark:shadow-[0_0_15px_rgba(14,165,233,0.2)]" data-cursor="Book Call">
+                        Book a Call
                     </a>
 
                     <!-- Mobile menu button -->
@@ -211,7 +217,7 @@
                 <a href="#cases" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900">Case Studies</a>
                 <a href="#ai" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-accent-600 dark:text-accent-400 hover:bg-gray-50 dark:hover:bg-gray-900">AI & Data</a>
                 <a href="#experience" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900">Journey</a>
-                <a href="#contact" class="mobile-link block px-3 py-2 mt-4 text-center rounded-md text-base font-medium bg-accent-600 text-white hover:bg-accent-700">Initialize Contact</a>
+                <a href="mailto:nripendusharma@outlook.com?subject=Booking a Call via Portfolio" class="mobile-link block px-3 py-2 mt-4 text-center rounded-md text-base font-medium bg-accent-600 text-white hover:bg-accent-700">Book a Call</a>
             </div>
         </div>
     </nav>
@@ -232,7 +238,7 @@
                     Architecting <span class="text-gradient-ai">AI-native systems</span> for massive enterprise scale.
                 </h1>
                 <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 md:mb-10 leading-relaxed max-w-2xl font-light mx-auto md:mx-0">
-                    I build enterprise B2B and GovTech platforms powered by data. From unlocking <strong class="text-gray-900 dark:text-white font-semibold">$50M in funding</strong> via operational intelligence to designing <strong class="text-gray-900 dark:text-white font-semibold">Agentic workflows</strong> that automate complex decisions for 100K+ users.
+                    I build enterprise B2B and GovTech platforms powered by data. I convert ambiguous problems into measurable reality—from securing <strong class="text-gray-900 dark:text-white font-semibold">$50M in funding</strong> via operational intelligence to designing <strong class="text-gray-900 dark:text-white font-semibold">Agentic workflows</strong> that automate complex decisions for 100K+ users.
                 </p>
                 <div class="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center md:justify-start">
                     <a href="Base_Resume_Nripendu.docx.pdf" download="Nripendu_Sharma_Resume.pdf" class="w-full sm:w-auto justify-center px-6 py-3 rounded bg-gray-900 dark:bg-white text-white dark:text-black font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors shadow-md flex items-center gap-2" data-cursor="Download PDF">
@@ -271,21 +277,37 @@
 
             <!-- Responsive Metrics Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 reveal">
-                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-accent-500" data-cursor="Scale">
-                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">ARR Uplift</div>
-                    <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">$7M</div>
+                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-accent-500 flex flex-col justify-between" data-cursor="Scale">
+                    <div>
+                        <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">ARR Uplift</div>
+                        <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">$7M</div>
+                        <p class="text-xs text-gray-500 mt-2 font-light">Added to UPPCL's bottom line by scaling data-driven electricity theft detection workflows.</p>
+                    </div>
+                    <button onclick="document.getElementById('cases').scrollIntoView(); document.getElementById('btn-uppcl').click();" class="text-xs text-accent-600 dark:text-accent-400 hover:underline mt-4 font-medium text-left">↳ Read UPPCL Case Study</button>
                 </div>
-                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-ai-500" data-cursor="Scale">
-                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">Funding Unlocked</div>
-                    <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">$50M</div>
+                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-ai-500 flex flex-col justify-between" data-cursor="Scale">
+                    <div>
+                        <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">Funding Secured</div>
+                        <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">$50M</div>
+                        <p class="text-xs text-gray-500 mt-2 font-light">Unlocked for UPPCL by designing high-fidelity MVP prototypes that aligned government leadership.</p>
+                    </div>
+                    <button onclick="document.getElementById('cases').scrollIntoView(); document.getElementById('btn-uppcl').click();" class="text-xs text-accent-600 dark:text-accent-400 hover:underline mt-4 font-medium text-left">↳ Read UPPCL Case Study</button>
                 </div>
-                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-green-500" data-cursor="Growth">
-                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">Users Served</div>
-                    <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">100K+</div>
+                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-green-500 flex flex-col justify-between" data-cursor="Growth">
+                    <div>
+                        <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">Users Served</div>
+                        <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">100K+</div>
+                        <p class="text-xs text-gray-500 mt-2 font-light">Served across global enterprise accounts at Talview by redesigning the core candidate experience.</p>
+                    </div>
+                    <button onclick="document.getElementById('cases').scrollIntoView(); document.getElementById('btn-talview-1').click();" class="text-xs text-accent-600 dark:text-accent-400 hover:underline mt-4 font-medium text-left">↳ Read Talview Case Study</button>
                 </div>
-                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-purple-500" data-cursor="Growth">
-                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">NPS Lift</div>
-                    <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">+29<span class="text-base sm:text-lg text-gray-400 dark:text-gray-500 ml-1 font-medium">pts</span></div>
+                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-purple-500 flex flex-col justify-between" data-cursor="Growth">
+                    <div>
+                        <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">NPS Lift</div>
+                        <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">+29<span class="text-base sm:text-lg text-gray-400 dark:text-gray-500 ml-1 font-medium">pts</span></div>
+                        <p class="text-xs text-gray-500 mt-2 font-light">Achieved at Talview by eliminating high-friction onboarding steps and shipping in-product nudges.</p>
+                    </div>
+                    <button onclick="document.getElementById('cases').scrollIntoView(); document.getElementById('btn-talview-1').click();" class="text-xs text-accent-600 dark:text-accent-400 hover:underline mt-4 font-medium text-left">↳ Read Talview Case Study</button>
                 </div>
             </div>
 
@@ -293,7 +315,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 reveal">
                 <div class="glass-card p-5 sm:p-6 rounded flex flex-col h-full" data-cursor="View Chart">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Customer Retention Growth</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Strategic discovery pivoted Magnus IT churn into long-term retention.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 font-light">I reprioritized discovery to pivot Magnus IT churn into long-term retention.</p>
                     <div class="flex-grow flex items-center justify-center w-full">
                         <div class="chart-container w-full">
                             <canvas id="retentionChart"></canvas>
@@ -302,7 +324,7 @@
                 </div>
                 <div class="glass-card p-5 sm:p-6 rounded flex flex-col h-full" data-cursor="View Chart">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Field Officer Adoption (UPPCL)</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Rapid onboarding of 8K+ frontline officers post-MVP launch.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 font-light">I rapidly onboarded 8K+ frontline officers post-MVP launch.</p>
                     <div class="flex-grow flex items-center justify-center w-full">
                         <div class="chart-container w-full">
                             <canvas id="adoptionChart"></canvas>
@@ -323,22 +345,19 @@
 
             <!-- Custom Tab Navigation -->
             <div class="flex overflow-x-auto no-scrollbar gap-2 mb-8 pb-2 border-b border-gray-200 dark:border-gray-800 reveal" id="case-tabs">
-                <button onclick="switchTab('case-uppcl', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 bg-accent-50 dark:bg-accent-500/10 text-accent-700 dark:text-accent-400 border-b-2 border-accent-500 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
+                <button id="btn-uppcl" onclick="switchTab('case-uppcl', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 bg-accent-50 dark:bg-accent-500/10 text-accent-700 dark:text-accent-400 border-b-2 border-accent-500 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
                     [0] GovTech Enforcement
                 </button>
-                <button onclick="switchTab('case-talview-1', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
+                <button id="btn-talview-1" onclick="switchTab('case-talview-1', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
                     [1] Candidate UX
                 </button>
-                <button onclick="switchTab('case-talview-2', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
-                    [2] Enterprise TTFV
-                </button>
-                <button onclick="switchTab('case-magnus', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
-                    [3] DMS Pivot
+                <button id="btn-magnus" onclick="switchTab('case-magnus', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
+                    [2] DMS Pivot
                 </button>
             </div>
 
             <!-- Tab Content Area -->
-            <div class="relative min-h-[500px] reveal">
+            <div class="relative min-h-[400px] reveal">
                 
                 <!-- CASE 1: UPPCL -->
                 <div id="case-uppcl" class="tab-content block animate-fade-in" data-cursor="Reading">
@@ -348,37 +367,37 @@
                                 <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">Scaling Data-Driven Electricity Theft Detection</h3>
                                 <p class="text-accent-600 dark:text-accent-400 font-mono text-xs sm:text-sm mb-4">UPPCL • Product Consultant • 2024 - Present</p>
                                 <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                                    Led the transformation of fragmented, manual field operations into a cohesive operational intelligence platform. Shipped an enforcement MVP to 8,000+ field officers across 5 districts in 6 months.
+                                    I led the transformation of fragmented, manual field operations into a cohesive operational intelligence platform. I engineered and shipped an enforcement MVP to 8,000+ field officers across 5 districts in 6 months.
                                 </p>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                                <div class="glass-card p-4 sm:p-5 border-t-4 border-t-accent-500 bg-gray-50/50 dark:bg-transparent">
-                                    <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-2">> Context</h4>
-                                    <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Massive revenue leak due to undetected electricity theft. Field officers operated blindly. Opportunity: A targeted $7M ARR uplift via optimized bill recovery workflows.</p>
+                                <div class="glass-card p-4 sm:p-5 border-t-4 border-t-accent-500 bg-gray-50/50 dark:bg-transparent flex flex-col h-full justify-between">
+                                    <div>
+                                        <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-2">> Context</h4>
+                                        <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Massive revenue leak due to undetected electricity theft. Field officers operated blindly. Opportunity: A targeted $7M ARR uplift via optimized bill recovery workflows.</p>
+                                    </div>
                                 </div>
-                                <div class="glass-card p-4 sm:p-5 border-t-4 border-t-ai-500 bg-gray-50/50 dark:bg-transparent">
-                                    <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-2">> Stakeholders</h4>
-                                    <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400"><strong>Primary:</strong> 8,000+ frontline enforcement officers (low tech-literacy).<br><strong>Secondary:</strong> IAS-level government leadership, vendors.</p>
+                                <div class="glass-card p-4 sm:p-5 border-t-4 border-t-ai-500 bg-gray-50/50 dark:bg-transparent flex flex-col h-full justify-between">
+                                    <div>
+                                        <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-2">> Stakeholders</h4>
+                                        <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400"><strong>Primary:</strong> 8,000+ frontline enforcement officers (low tech-literacy).<br><strong>Secondary:</strong> IAS-level government leadership, vendors.</p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="glass-card p-5 sm:p-6 bg-white dark:bg-transparent">
-                                <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-4">> Strategy & Discovery</h4>
-                                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4 font-light">Conducted deep structured user discovery by shadowing frontline officers. Discovered the core issue wasn't just 'finding' theft, but proving it efficiently on-site to create an undeniable audit trail.</p>
-                                <div class="bg-gray-50 dark:bg-[#050505] rounded border border-gray-200 dark:border-gray-800 p-3 sm:p-4 font-mono text-[10px] sm:text-xs text-gray-600 dark:text-gray-400 overflow-x-auto">
-                                    <span class="text-accent-600 dark:text-accent-400 font-bold">PRIORITIZATION_MATRIX: [MoSCoW]</span><br><br>
-                                    <span class="text-green-600 dark:text-green-400 font-bold">MUST_HAVE:</span> Geolocation tagging, offline syncing, anomaly alerts.<br>
-                                    <span class="text-yellow-600 dark:text-yellow-400 font-bold">SHOULD_HAVE:</span> Automated report generation.<br>
-                                    <span class="text-gray-400 dark:text-gray-500 font-bold">WON'T_HAVE:</span> Predictive ML models (deferred to phase 2).
-                                </div>
+                            <div>
+                                <button onclick="openModal('uppcl-modal')" class="px-5 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-semibold rounded shadow-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors inline-flex items-center gap-2" data-cursor="Open Modal">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    Read Full Case Study
+                                </button>
                             </div>
                         </div>
 
                         <!-- Sidebar Stats -->
                         <div class="space-y-6">
                             <div class="glass-card p-5 sm:p-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900/50 dark:to-transparent border border-gray-200 dark:border-accent-500/20">
-                                <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-4 uppercase">Impact.json</h4>
+                                <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-4 uppercase">Business Impact</h4>
                                 <div class="space-y-4">
                                     <div>
                                         <div class="text-xl sm:text-2xl font-mono text-gray-900 dark:text-white">$7M</div>
@@ -408,20 +427,28 @@
                                 <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">Candidate UX Redesign & Activation</h3>
                                 <p class="text-accent-600 dark:text-accent-400 font-mono text-xs sm:text-sm mb-4">Talview • Product Manager • 2022 - 2023</p>
                                 <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                                    Lifted NPS by +29 points by leading an end-to-end candidate app redesign. Instrumented score tracking to isolate the highest-friction moments and prioritized fixes by an impact-to-effort framework.
+                                    I lifted NPS by +29 points by leading an end-to-end candidate app redesign. I instrumented score tracking to isolate the highest-friction moments and prioritized fixes using a strict impact-to-effort framework.
                                 </p>
                             </div>
 
                             <div class="glass-card p-5 sm:p-6 border-l-4 border-l-green-500 bg-gray-50/50 dark:bg-transparent">
                                 <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-3">> Execution & Analytics</h4>
                                 <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4 font-light">
-                                    Cut candidate time-to-value by 40% by leading a friction-audit-led redesign of the onboarding flow. I instrumented the activation funnel in <strong>Mixpanel</strong> to isolate drop-off, eliminated 3 high-abandonment steps, and shipped contextual in-product nudges validated through A/B tests across 11 cohorts.
+                                    I cut candidate time-to-value by 40% by leading a friction-audit-led redesign of the onboarding flow. I instrumented the activation funnel in <strong>Mixpanel</strong> to isolate drop-off, eliminated 3 high-abandonment steps, and shipped contextual in-product nudges validated through A/B tests across 11 cohorts.
                                 </p>
                             </div>
                         </div>
+
+                        <div>
+                            <button onclick="openModal('talview-modal')" class="mt-2 sm:mt-0 px-5 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-semibold rounded shadow-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors inline-flex items-center gap-2" data-cursor="Open Modal">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                Read Full Case Study
+                            </button>
+                        </div>
+
                         <div class="space-y-6">
                             <div class="glass-card p-5 sm:p-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900/50 dark:to-transparent border border-gray-200 dark:border-green-500/20">
-                                <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-4 uppercase">Impact.json</h4>
+                                <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-4 uppercase">Business Impact</h4>
                                 <ul class="space-y-4">
                                     <li>
                                         <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">+29 pts</div>
@@ -443,28 +470,7 @@
                     </div>
                 </div>
 
-                <!-- CASE 3: Talview Enterprise -->
-                <div id="case-talview-2" class="tab-content hidden animate-fade-in" data-cursor="Reading">
-                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div class="lg:col-span-2 space-y-6 sm:space-y-8">
-                            <div>
-                                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">Global Rollout & WCAG Compliance</h3>
-                                <p class="text-accent-600 dark:text-accent-400 font-mono text-xs sm:text-sm mb-4">Talview • Product Manager • 2022 - 2023</p>
-                                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                                    Owned the go-to-market for the redesigned candidate experience rolled out across enterprise accounts globally (including Cambridge Assessments, Cisco, Nvidia).
-                                </p>
-                            </div>
-                            <div class="glass-card p-5 sm:p-6 border-l-4 border-l-purple-500 bg-gray-50/50 dark:bg-transparent">
-                                <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-3">> Go-to-Market Strategy</h4>
-                                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4 font-light">
-                                    A global rollout required a phased, enablement-led launch strategy. I coordinated with engineering to ensure strict adherence to <strong>WCAG 2.1 AA accessibility standards</strong>, which was a hard blocker for major public-sector and enterprise deals. Compressed time-to-first-value (TTFV) by 40% globally.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CASE 4: Magnus IT -->
+                <!-- CASE 3: Magnus IT -->
                 <div id="case-magnus" class="tab-content hidden animate-fade-in" data-cursor="Reading">
                      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div class="lg:col-span-2 space-y-6 sm:space-y-8">
@@ -472,14 +478,43 @@
                                 <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">DMS Turnaround & Tender Qualification</h3>
                                 <p class="text-accent-600 dark:text-accent-400 font-mono text-xs sm:text-sm mb-4">Magnus IT Solutions • Product Manager • 2018 - 2022</p>
                                 <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                                    Spearheaded user retention for the Digital File Management System (DMS) across 14+ state government clients.
+                                    I spearheaded the rescue of a struggling Digital File Management System (DMS) deployed across 14+ state government clients. By entirely restructuring the product discovery process, I aligned the platform with actual clerical pain points to halt churn.
                                 </p>
                             </div>
                             <div class="glass-card p-5 sm:p-6 border-l-4 border-l-orange-500 bg-gray-50/50 dark:bg-transparent">
                                 <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-3">> Strategic Pivot</h4>
                                 <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4 font-light">
-                                    The product was experiencing churn. I pioneered a new product discovery phase, interviewing key user personas. I reprioritized OKRs strictly around these discovered user problems, successfully increasing CRR from 15% to 45%. Simultaneously achieved L1 Tender Qualification.
+                                    Facing severe product churn, I pioneered a new product discovery phase by actively interviewing key end-users rather than relying on top-down assumptions. I reprioritized our OKRs strictly around these newly discovered friction points, stripping away bloated features to focus purely on workflow speed.
                                 </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button onclick="openModal('magnus-modal')" class="mt-2 sm:mt-0 px-5 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-semibold rounded shadow-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors inline-flex items-center gap-2" data-cursor="Open Modal">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                Read Full Case Study
+                            </button>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="glass-card p-5 sm:p-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900/50 dark:to-transparent border border-gray-200 dark:border-orange-500/20">
+                                <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-4 uppercase">Business Impact</h4>
+                                <ul class="space-y-4">
+                                    <li>
+                                        <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">3x</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Retention Increase</div>
+                                    </li>
+                                    <li class="h-px bg-gray-200 dark:bg-white/5 w-full"></li>
+                                    <li>
+                                        <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">60%</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Turnaround Time Cut</div>
+                                    </li>
+                                    <li class="h-px bg-gray-200 dark:bg-white/5 w-full"></li>
+                                    <li>
+                                        <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">14+</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Gov Clients Retained</div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -487,6 +522,481 @@
 
             </div>
         </div>
+
+        <!-- Case Study Modal (Hidden by Default) -->
+        <div id="uppcl-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-gray-900/60 dark:bg-black/80 backdrop-blur-sm" onclick="closeModal('uppcl-modal')"></div>
+            
+            <!-- Modal Content -->
+            <div class="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="uppcl-modal-content">
+                
+                <!-- Header -->
+                <div class="sticky top-0 z-10 flex items-center justify-between px-5 sm:px-6 py-4 border-b border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded bg-accent-50 dark:bg-accent-500/20 border border-accent-200 dark:border-accent-500/50 flex items-center justify-center text-accent-600 dark:text-accent-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white font-mono">Deep Dive: UPPCL Raid Management</h3>
+                    </div>
+                    <button onclick="closeModal('uppcl-modal')" class="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="p-5 sm:p-8 overflow-y-auto flex-1 space-y-8">
+                    <!-- Why it was required -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-accent-600 dark:text-accent-400 mb-2 uppercase tracking-wider font-bold">01. The Problem Space</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">Operational Chaos & Revenue Leakage</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">Before this initiative, the Uttar Pradesh Power Corporation Limited (UPPCL) faced a critical revenue hemorrhage. Enforcement officers—the frontline workers tasked with detecting electricity theft—were operating completely in the dark. Inspections were manual, fragmented, and driven by intuition rather than data. Because there was no verifiable audit trail, corruption and inefficiencies thrived, and bill recovery workflows were massively bottlenecked.</p>
+                    </section>
+
+                    <!-- Strategy & Discovery -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-accent-600 dark:text-accent-400 mb-2 uppercase tracking-wider font-bold">02. Strategy & Discovery</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">Prioritizing the Ground Reality</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light mb-4">I conducted deep structured user discovery by shadowing frontline officers in the field. I discovered the core issue wasn't just 'finding' theft, but proving it efficiently on-site to create an undeniable audit trail. I immediately established a strict prioritization matrix to focus engineering efforts on what mattered most to the officers.</p>
+                        
+                        <div class="bg-gray-50 dark:bg-[#050505] rounded-xl border border-gray-200 dark:border-gray-800 p-5 font-mono text-xs sm:text-sm text-gray-600 dark:text-gray-400 overflow-x-auto shadow-inner">
+                            <span class="text-accent-600 dark:text-accent-400 font-bold mb-2 block">PRIORITIZATION_MATRIX: [MoSCoW]</span>
+                            <ul class="space-y-2 mt-2">
+                                <li><span class="text-green-600 dark:text-green-400 font-bold">MUST_HAVE:</span> Geolocation tagging, offline syncing, anomaly alerts.</li>
+                                <li><span class="text-yellow-600 dark:text-yellow-400 font-bold">SHOULD_HAVE:</span> Automated report generation.</li>
+                                <li><span class="text-gray-400 dark:text-gray-500 font-bold">WON'T_HAVE:</span> Predictive ML models (deferred to phase 2).</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- What changed with AI -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-ai-600 dark:text-ai-400 mb-2 uppercase tracking-wider font-bold">03. The Solution</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">AI-Assisted Operational Intelligence</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light mb-4">I led the transformation from static ledgers to a proactive, data-driven Raid Management System, spearheading the MVP designed specifically for 8,000+ low-tech-literacy field officers.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="mt-0.5 sm:mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-ai-50 dark:bg-ai-500/20 border border-ai-200 dark:border-ai-500/50 text-ai-600 dark:text-ai-400 flex items-center justify-center text-[10px] font-bold">✓</span>
+                                <span class="text-gray-600 dark:text-gray-300 text-sm sm:text-base"><strong class="text-gray-900 dark:text-white">Consumption Anomaly Alerts:</strong> I replaced random field checks with targeted raids based on historical meter data anomalies, utilizing logic to flag potential theft locations with high accuracy before officers even arrived.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="mt-0.5 sm:mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-ai-50 dark:bg-ai-500/20 border border-ai-200 dark:border-ai-500/50 text-ai-600 dark:text-ai-400 flex items-center justify-center text-[10px] font-bold">✓</span>
+                                <span class="text-gray-600 dark:text-gray-300 text-sm sm:text-base"><strong class="text-gray-900 dark:text-white">Irrefutable Audit Trails:</strong> I integrated secure geolocation tagging and automated report generation, eliminating discrepancies, falsified records, and manual paperwork on-site.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="mt-0.5 sm:mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-ai-50 dark:bg-ai-500/20 border border-ai-200 dark:border-ai-500/50 text-ai-600 dark:text-ai-400 flex items-center justify-center text-[10px] font-bold">✓</span>
+                                <span class="text-gray-600 dark:text-gray-300 text-sm sm:text-base"><strong class="text-gray-900 dark:text-white">Offline-First Architecture:</strong> I ensured the application functioned flawlessly in remote districts without internet access, syncing data asynchronously once connectivity was restored to maintain continuous operations.</span>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Feature Insight: Raid Dashboard Mock -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-accent-600 dark:text-accent-400 mb-2 uppercase tracking-wider font-bold">04. Feature Insight</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">Target Profile Analysis Dashboard</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light mb-4">A critical challenge was translating raw machine learning outputs into actionable directives for non-technical field officers. I designed a centralized "Raid Intelligence" dashboard that correlated sanctioned load vs. actual transformer patterns to accurately predict bypasses and dispatch officers.</p>
+                        
+                        <!-- Reconstructed UI Dashboard Snippet -->
+                        <div class="mt-6 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg bg-gray-50 dark:bg-[#0a0a0a]">
+                            <!-- Browser/Window Header -->
+                            <div class="bg-gray-200/50 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex gap-1.5">
+                                        <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
+                                    </span>
+                                    <span class="text-[10px] font-mono font-medium text-gray-500 dark:text-gray-400 ml-2 bg-white dark:bg-[#111] px-2 py-0.5 rounded-md border border-gray-200 dark:border-gray-800">raid.uppcl.org/intelligence/target-9021</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Dashboard Content -->
+                            <div class="p-5 sm:p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h6 class="text-sm font-bold text-gray-900 dark:text-white font-mono uppercase tracking-tight">Raid Target Assessment</h6>
+                                    <span class="px-2 py-1 bg-red-100 dark:bg-red-500/20 text-red-700 dark:text-red-400 text-[10px] font-bold rounded-md uppercase tracking-wider flex items-center gap-1 animate-pulse">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-red-500"></div> Critical Risk
+                                    </span>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <!-- Metrics Column -->
+                                    <div class="col-span-1 space-y-4">
+                                        <div class="p-4 bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 rounded-lg shadow-sm">
+                                            <div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold tracking-wider mb-1">Theft Probability Model</div>
+                                            <div class="text-3xl font-bold text-red-600 dark:text-red-500">89.4%</div>
+                                            <div class="text-[10px] text-red-500 mt-1 flex items-center gap-1 font-mono">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                                                +12% in 48hrs
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="p-4 bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 rounded-lg shadow-sm">
+                                            <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-2 font-mono">
+                                                <li class="flex justify-between"><span class="font-semibold text-gray-800 dark:text-gray-200">Connection:</span> <span>440-291A</span></li>
+                                                <li class="flex justify-between"><span class="font-semibold text-gray-800 dark:text-gray-200">Sanctioned:</span> <span>2.0 kW</span></li>
+                                                <li class="flex justify-between"><span class="font-semibold text-gray-800 dark:text-gray-200">Est. Actual:</span> <span class="text-red-600 dark:text-red-400 font-bold">7.8 kW</span></li>
+                                                <li class="flex justify-between"><span class="font-semibold text-gray-800 dark:text-gray-200">Bypass Type:</span> <span>Direct Tapping</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Chart Column -->
+                                    <div class="col-span-1 md:col-span-2 bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 rounded-lg p-4 shadow-sm flex flex-col justify-between">
+                                        <div class="text-[10px] text-gray-500 dark:text-gray-400 font-mono uppercase mb-4 font-bold tracking-wider">30-Day Sub-Station Load Variance vs Billing</div>
+                                        
+                                        <!-- CSS Bar Chart (Anomaly Visualization) -->
+                                        <div class="flex items-end gap-1 h-32 border-b border-l border-gray-200 dark:border-gray-700 pl-1 pb-1">
+                                            <!-- Normal Baseline -->
+                                            <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[25%] rounded-t-sm"></div>
+                                            <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[22%] rounded-t-sm"></div>
+                                            <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[28%] rounded-t-sm"></div>
+                                            <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[24%] rounded-t-sm"></div>
+                                            <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[26%] rounded-t-sm"></div>
+                                            
+                                            <!-- Spike (Unmetered AC/Industrial load begins) -->
+                                            <div class="w-full bg-red-500/60 hover:bg-red-500/80 transition-colors h-[75%] rounded-t-sm relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[8px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity">Spike Detected</div></div>
+                                            <div class="w-full bg-red-500/70 hover:bg-red-500/90 transition-colors h-[85%] rounded-t-sm"></div>
+                                            <div class="w-full bg-red-500/80 hover:bg-red-500 transition-colors h-[95%] rounded-t-sm relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[8px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity">Peak Unmetered Load</div></div>
+                                            <div class="w-full bg-red-500/70 hover:bg-red-500/90 transition-colors h-[80%] rounded-t-sm"></div>
+                                            <div class="w-full bg-red-500/60 hover:bg-red-500/80 transition-colors h-[70%] rounded-t-sm"></div>
+                                            
+                                            <!-- Total Drop (Meter Bypass / Tampering) -->
+                                            <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[5%] rounded-t-sm relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[8px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity">Meter Bypassed</div></div>
+                                            <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[2%] rounded-t-sm"></div>
+                                            <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[3%] rounded-t-sm"></div>
+                                            <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[1%] rounded-t-sm"></div>
+                                            <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[2%] rounded-t-sm"></div>
+                                        </div>
+                                        
+                                        <div class="text-[9px] sm:text-[10px] text-gray-500 dark:text-gray-400 mt-2 flex justify-between font-mono">
+                                            <span>Day 1 (Normal)</span>
+                                            <span class="text-red-500 font-bold">Day 14 (Load Spike)</span>
+                                            <span class="text-gray-600 dark:text-gray-300 font-bold">Day 28 (Bypass)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800 flex justify-between items-center">
+                                    <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 italic flex-1">This is a reconstructed visual representation of the proprietary UPPCL Raid Analytics interface.</p>
+                                    <button class="px-3 py-1.5 bg-accent-600 hover:bg-accent-700 text-white text-[10px] sm:text-xs font-bold rounded shadow-sm flex items-center gap-1.5 transition-colors uppercase tracking-wide">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                                        Dispatch Officer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Impact -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-green-600 dark:text-green-400 mb-2 uppercase tracking-wider font-bold">05. The Impact</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">Cost Savings & Rapid Adoption</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none">
+                                <div class="text-2xl font-mono text-gray-900 dark:text-white mb-1">$7M</div>
+                                <div class="text-xs text-gray-500 uppercase font-medium">ARR Uplift</div>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none">
+                                <div class="text-2xl font-mono text-gray-900 dark:text-white mb-1">$50M</div>
+                                <div class="text-xs text-gray-500 uppercase font-medium">Funding Secured</div>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none">
+                                <div class="text-2xl font-mono text-gray-900 dark:text-white mb-1">8K+</div>
+                                <div class="text-xs text-gray-500 uppercase font-medium">Officers Onboarded</div>
+                            </div>
+                        </div>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">The introduction of this system directly translated to a <strong>14% ARR uplift</strong> ($7M) by drastically cutting operational waste and expediting bill recovery workflows. Furthermore, by designing a high-fidelity prototype that translated this abstract data vision into a tangible product, I successfully aligned skeptical IAS-level leadership, unlocking a massive <strong>$50M project funding tranche</strong> to scale the system globally.</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Talview Case Study Modal (Hidden by Default) -->
+        <div id="talview-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-gray-900/60 dark:bg-black/80 backdrop-blur-sm" onclick="closeModal('talview-modal')"></div>
+            
+            <!-- Modal Content -->
+            <div class="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="talview-modal-content">
+                
+                <!-- Header -->
+                <div class="sticky top-0 z-10 flex items-center justify-between px-5 sm:px-6 py-4 border-b border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded bg-green-50 dark:bg-green-500/20 border border-green-200 dark:border-green-500/50 flex items-center justify-center text-green-600 dark:text-green-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white font-mono">Deep Dive: Enterprise Candidate UX Redesign</h3>
+                    </div>
+                    <button onclick="closeModal('talview-modal')" class="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="p-5 sm:p-8 overflow-y-auto flex-1 space-y-8">
+                    <!-- Why it was required -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-green-600 dark:text-green-400 mb-2 uppercase tracking-wider font-bold">01. The Problem Space</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">Security vs. Candidate Empathy</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">Talview provides sophisticated AI-powered hiring and proctoring solutions to global enterprises. This platform demands rigorous security measures—including browser lockdown, multi-camera monitoring, and identity verification. However, these vital security protocols created an intimidating wall of friction for candidates. Users were bombarded with aggressive hardware permission requests with zero context, causing massive abandonment rates that directly damaged the employer brands of our major clients, including Cisco and Nvidia.</p>
+                    </section>
+
+                    <!-- Strategy & Discovery -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-green-600 dark:text-green-400 mb-2 uppercase tracking-wider font-bold">02. Strategy & Discovery</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">The Data-Driven Friction Audit</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light mb-4">Instead of relying on anecdotal complaints, I instrumented the entire candidate activation funnel in <strong>Mixpanel</strong>. By tracking every micro-interaction, I isolated the exact moments of highest decay. I discovered that 65% of all drop-offs occurred precisely at the "System Hardware Check" screen. Armed with this behavioral data, I utilized an Impact vs. Effort matrix to prioritize contextual nudges and asynchronous background checks over complex UI overhauls.</p>
+                    </section>
+
+                    <!-- Feature Insight: Mixpanel Dashboard Mock -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-green-600 dark:text-green-400 mb-2 uppercase tracking-wider font-bold">03. Feature Insight</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">Onboarding Funnel Optimization</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light mb-4">I redesigned the flow to replace aggressive blocking prompts with a phased, empathetic "workspace setup" flow that explained the <em>why</em> behind every camera and screen-share request.</p>
+                        
+                        <!-- Reconstructed UI Dashboard Snippet -->
+                        <div class="mt-6 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg bg-gray-50 dark:bg-[#0a0a0a]">
+                            <!-- Browser/Window Header -->
+                            <div class="bg-gray-200/50 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex gap-1.5">
+                                        <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
+                                    </span>
+                                    <span class="text-[10px] font-mono font-medium text-gray-500 dark:text-gray-400 ml-2 bg-white dark:bg-[#111] px-2 py-0.5 rounded-md border border-gray-200 dark:border-gray-800">mixpanel.talview.internal / onboarding-funnel</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Dashboard Content -->
+                            <div class="p-5 sm:p-6">
+                                <div class="flex items-center justify-between mb-6">
+                                    <h6 class="text-sm font-bold text-gray-900 dark:text-white font-mono uppercase tracking-tight">Conversion Funnel: V1 vs. Redesign</h6>
+                                    <div class="flex gap-4 text-[10px] font-mono font-bold uppercase">
+                                        <span class="flex items-center gap-1.5 text-gray-500"><div class="w-2 h-2 bg-gray-300 dark:bg-gray-700 rounded-sm"></div> Legacy Flow</span>
+                                        <span class="flex items-center gap-1.5 text-green-600 dark:text-green-400"><div class="w-2 h-2 bg-green-500 rounded-sm"></div> Redesign (Live)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-5">
+                                    <!-- Funnel Step 1 -->
+                                    <div>
+                                        <div class="flex justify-between text-xs font-mono text-gray-600 dark:text-gray-400 mb-1.5">
+                                            <span>1. Landing Page Entry</span>
+                                            <span>100%</span>
+                                        </div>
+                                        <div class="w-full h-4 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden relative">
+                                            <div class="absolute inset-y-0 left-0 w-full bg-gray-300 dark:bg-gray-700"></div>
+                                            <div class="absolute inset-y-0 left-0 w-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.4)] transition-all duration-1000"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Funnel Step 2 -->
+                                    <div>
+                                        <div class="flex justify-between text-xs font-mono text-gray-600 dark:text-gray-400 mb-1.5">
+                                            <span>2. Security Context Nudge (New)</span>
+                                            <span class="text-green-600 dark:text-green-400 font-bold">92%</span>
+                                        </div>
+                                        <div class="w-full h-4 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden relative">
+                                            <div class="absolute inset-y-0 left-0 w-[42%] bg-gray-300 dark:bg-gray-700"></div>
+                                            <div class="absolute inset-y-0 left-0 w-[92%] bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.4)] transition-all duration-1000" style="transition-delay: 200ms;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Funnel Step 3 -->
+                                    <div>
+                                        <div class="flex justify-between text-xs font-mono text-gray-600 dark:text-gray-400 mb-1.5">
+                                            <span>3. Hardware Permissions Granted</span>
+                                            <span class="text-green-600 dark:text-green-400 font-bold">85% <span class="text-gray-400 font-light ml-1">(Legacy: 35%)</span></span>
+                                        </div>
+                                        <div class="w-full h-4 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden relative group">
+                                            <!-- The UX Fix highlight tooltip -->
+                                            <div class="absolute -top-7 left-[35%] bg-gray-900 text-white text-[9px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity z-10 whitespace-nowrap">Eliminated 50% drop-off by explaining 'why'</div>
+                                            
+                                            <div class="absolute inset-y-0 left-0 w-[35%] bg-gray-300 dark:bg-gray-700"></div>
+                                            <div class="absolute inset-y-0 left-0 w-[85%] bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.4)] transition-all duration-1000" style="transition-delay: 400ms;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Funnel Step 4 -->
+                                    <div>
+                                        <div class="flex justify-between text-xs font-mono text-gray-600 dark:text-gray-400 mb-1.5">
+                                            <span>4. Identity Verified & Assessment Started</span>
+                                            <span class="text-green-600 dark:text-green-400 font-bold">78% <span class="text-gray-400 font-light ml-1">(Legacy: 18%)</span></span>
+                                        </div>
+                                        <div class="w-full h-4 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden relative group">
+                                            <!-- The UX Fix highlight tooltip -->
+                                            <div class="absolute -top-7 left-[18%] bg-gray-900 text-white text-[9px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity z-10 whitespace-nowrap">Merged redundant ID forms via ATS pipeline</div>
+
+                                            <div class="absolute inset-y-0 left-0 w-[18%] bg-gray-300 dark:bg-gray-700"></div>
+                                            <div class="absolute inset-y-0 left-0 w-[78%] bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.4)] transition-all duration-1000" style="transition-delay: 600ms;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-3">
+                                    <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 italic flex-1">Reconstructed visualization of the friction audit impact.</p>
+                                    <div class="flex gap-2">
+                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400 text-[10px] font-bold rounded-md font-mono">+60% Net Conversion</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Impact -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-green-600 dark:text-green-400 mb-2 uppercase tracking-wider font-bold">04. The Business Impact</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">Driving Value Through Empathy</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none">
+                                <div class="text-2xl font-mono text-gray-900 dark:text-white mb-1">+29</div>
+                                <div class="text-xs text-gray-500 uppercase font-medium">NPS Points Lifted</div>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none">
+                                <div class="text-2xl font-mono text-gray-900 dark:text-white mb-1">40%</div>
+                                <div class="text-xs text-gray-500 uppercase font-medium">Decrease in TTFV</div>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none">
+                                <div class="text-2xl font-mono text-gray-900 dark:text-white mb-1">100K+</div>
+                                <div class="text-xs text-gray-500 uppercase font-medium">Candidates Served</div>
+                            </div>
+                        </div>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">By treating candidate empathy as a core performance metric rather than an afterthought, I improved Customer Satisfaction (CSAT) by 35% within three months of the launch. The product successfully served over 100,000 candidates globally while maintaining strict compliance with WCAG 2.1 AA accessibility standards, ultimately deepening Weekly Active User (WAU) engagement for our key enterprise clients.</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Magnus IT Case Study Modal (Hidden by Default) -->
+        <div id="magnus-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-gray-900/60 dark:bg-black/80 backdrop-blur-sm" onclick="closeModal('magnus-modal')"></div>
+            
+            <!-- Modal Content -->
+            <div class="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col transform scale-95 transition-transform duration-300" id="magnus-modal-content">
+                
+                <!-- Header -->
+                <div class="sticky top-0 z-10 flex items-center justify-between px-5 sm:px-6 py-4 border-b border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded bg-orange-50 dark:bg-orange-500/20 border border-orange-200 dark:border-orange-500/50 flex items-center justify-center text-orange-600 dark:text-orange-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+                        </div>
+                        <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white font-mono">Deep Dive: DMS Turnaround & Tender Qualification</h3>
+                    </div>
+                    <button onclick="closeModal('magnus-modal')" class="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Scrollable Body -->
+                <div class="p-5 sm:p-8 overflow-y-auto flex-1 space-y-8">
+                    <!-- The Problem Space -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-orange-600 dark:text-orange-400 mb-2 uppercase tracking-wider font-bold">01. The Problem Space</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">Feature Bloat & Rapid Churn</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">Magnus IT Solutions provided a critical Digital File Management System (DMS) to various state government agencies. These agencies relied heavily on legacy paper-based workflows. Despite the mandate to digitize, the platform faced escalating churn and a dangerously low Customer Retention Rate (CRR) of just 15%. The product was technically robust but failing operationally because it was fundamentally misaligned with the actual capabilities and daily realities of its end-users.</p>
+                    </section>
+
+                    <!-- Strategy & Discovery -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-orange-600 dark:text-orange-400 mb-2 uppercase tracking-wider font-bold">02. Strategy & Discovery</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">Bypassing Assumptions for Reality</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light mb-4">I suspected a disconnect between the buyers (senior officials) and the actual users (government clerks). I overhauled our discovery process by actively interviewing and shadowing the clerks. I discovered the UI was built for software engineers, not administrative staff. Complex tagging structures and convoluted navigation meant tasks took longer digitally than on paper. Armed with this qualitative data, I forced a hard pivot. We abandoned developing new "shiny" features and re-anchored all OKRs strictly around workflow simplification and speed.</p>
+                    </section>
+
+                    <!-- Feature Insight: Velocity Dashboard Mock -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-orange-600 dark:text-orange-400 mb-2 uppercase tracking-wider font-bold">03. Feature Insight</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3">Workflow Acceleration Metrics</h5>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light mb-4">By aggressively pruning features, optimizing the primary document ingestion flow, and aligning the architecture with L1 Tender technical specifications, we fundamentally changed the trajectory of the product.</p>
+                        
+                        <!-- Reconstructed UI Dashboard Snippet -->
+                        <div class="mt-6 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg bg-gray-50 dark:bg-[#0a0a0a]">
+                            <!-- Browser/Window Header -->
+                            <div class="bg-gray-200/50 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
+                                <div class="flex items-center gap-2">
+                                    <span class="flex gap-1.5">
+                                        <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
+                                    </span>
+                                    <span class="text-[10px] font-mono font-medium text-gray-500 dark:text-gray-400 ml-2 bg-white dark:bg-[#111] px-2 py-0.5 rounded-md border border-gray-200 dark:border-gray-800">magnus-analytics.internal/dms-velocity</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Dashboard Content -->
+                            <div class="p-5 sm:p-6">
+                                <div class="flex items-center justify-between mb-6">
+                                    <h6 class="text-sm font-bold text-gray-900 dark:text-white font-mono uppercase tracking-tight">Average File Turnaround Time (TAT)</h6>
+                                    <span class="px-2 py-1 bg-orange-100 dark:bg-orange-500/20 text-orange-700 dark:text-orange-400 text-[10px] font-bold rounded-md uppercase tracking-wider flex items-center gap-1.5">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                                        -60% Reduction
+                                    </span>
+                                </div>
+                                
+                                <div class="flex items-end gap-2 sm:gap-4 h-40 border-b-2 border-l-2 border-gray-200 dark:border-gray-700 pl-2 pb-1 relative mt-8">
+                                    <!-- Baseline Y-Axis Marker -->
+                                    <div class="absolute -left-8 top-0 text-[10px] text-gray-500 font-mono">48h+</div>
+                                    <div class="absolute -left-8 bottom-0 text-[10px] text-gray-500 font-mono">0h</div>
+                                    
+                                    <!-- Pre-Optimization Data bars -->
+                                    <div class="w-full bg-gray-300 dark:bg-gray-700 h-[100%] rounded-t-sm relative group">
+                                        <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[9px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity">Baseline: 48+ Hrs</div>
+                                    </div>
+                                    <div class="w-full bg-gray-300 dark:bg-gray-700 h-[92%] rounded-t-sm"></div>
+                                    <div class="w-full bg-gray-300 dark:bg-gray-700 h-[96%] rounded-t-sm"></div>
+                                    <div class="w-full bg-gray-300 dark:bg-gray-700 h-[88%] rounded-t-sm relative group">
+                                        <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[9px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity">Churn Peak</div>
+                                    </div>
+                                    
+                                    <!-- Intervention Line -->
+                                    <div class="absolute left-[50%] top-0 bottom-0 border-l-2 border-dashed border-orange-500/50 z-0"></div>
+                                    
+                                    <!-- Post-intervention bars -->
+                                    <div class="w-full bg-orange-400/70 dark:bg-orange-500/60 h-[55%] rounded-t-sm relative group z-10 ml-2">
+                                         <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[9px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity">Clerk UX Rollout</div>
+                                    </div>
+                                    <div class="w-full bg-orange-400/80 dark:bg-orange-500/80 h-[45%] rounded-t-sm z-10"></div>
+                                    <div class="w-full bg-orange-500 dark:bg-orange-500 h-[40%] rounded-t-sm relative group z-10">
+                                         <div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[9px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity">New TAT: ~19 Hrs</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-[9px] sm:text-[10px] text-gray-500 dark:text-gray-400 mt-4 flex justify-between font-mono font-bold">
+                                    <span>Q1 (Bloated UI)</span>
+                                    <span class="text-orange-600 dark:text-orange-400 ml-4">UX Intervention</span>
+                                    <span class="text-gray-800 dark:text-gray-200">Q3 (Optimized)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Impact -->
+                    <section>
+                        <h4 class="text-xs sm:text-sm font-mono text-orange-600 dark:text-orange-400 mb-2 uppercase tracking-wider font-bold">04. The Business Impact</h4>
+                        <h5 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">Building a Defensive Moat</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none">
+                                <div class="text-2xl font-mono text-gray-900 dark:text-white mb-1">3x</div>
+                                <div class="text-xs text-gray-500 uppercase font-medium">CRR Lift (15% to 45%)</div>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none">
+                                <div class="text-2xl font-mono text-gray-900 dark:text-white mb-1">60%</div>
+                                <div class="text-xs text-gray-500 uppercase font-medium">Less Turnaround Time</div>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none">
+                                <div class="text-2xl font-mono text-gray-900 dark:text-white mb-1">14+</div>
+                                <div class="text-xs text-gray-500 uppercase font-medium">State Agencies Retained</div>
+                            </div>
+                        </div>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">By listening to the actual end-users rather than internal executives, I successfully halted the churn spiral. We successfully tripled the Customer Retention Rate (CRR) from 15% to 45% and reduced document processing time by 60%. Furthermore, by strategically aligning the product architecture to pass L1 Tender Qualifications, I established a formidable competitive moat that led to a 25% increase in contract renewals.</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     <!-- AI Product Management Expertise -->
@@ -494,7 +1004,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="mb-8 md:mb-12 reveal text-center md:text-left">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-gray-900 dark:text-white" data-cursor="AI Architect">AI & Data Product Architecture</h2>
-                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto md:mx-0">Beyond API wrappers. Experience designing systems incorporating RAG pipelines, LLM fine-tuning, and Agentic workflows with Human-in-the-loop safeguards.</p>
+                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto md:mx-0">I look beyond API wrappers. I have direct experience designing systems incorporating RAG pipelines, LLM fine-tuning, and Agentic workflows with Human-in-the-loop safeguards.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center reveal">
@@ -567,7 +1077,7 @@
                 <div class="space-y-6" data-cursor="Read Framework">
                     <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Engineering Context for AI Products</h3>
                     <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-light">
-                        Transitioning from traditional SaaS to AI-native products requires deep understanding of data pipelines, evaluation frameworks, and context engineering to build enterprise trust.
+                        I transition traditional SaaS to AI-native products by deeply understanding data pipelines, evaluation frameworks, and context engineering to build enterprise trust.
                     </p>
                     
                     <div class="space-y-4 sm:space-y-5">
@@ -575,21 +1085,21 @@
                             <div class="mt-0.5 sm:mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded bg-accent-100 dark:bg-accent-500/10 border border-accent-200 dark:border-accent-500/50 flex-shrink-0 flex items-center justify-center text-accent-700 dark:text-accent-400 text-[10px] sm:text-xs font-mono">01</div>
                             <div>
                                 <h4 class="text-sm sm:text-base text-gray-900 dark:text-white font-medium">RAG & Context Engineering</h4>
-                                <p class="text-xs sm:text-sm text-gray-500 font-light mt-0.5">Structuring unstructured enterprise data. Balancing chunk size, vector similarity, and context windows.</p>
+                                <p class="text-xs sm:text-sm text-gray-500 font-light mt-0.5">I structure unstructured enterprise data, balancing chunk size, vector similarity, and context windows for optimal retrieval.</p>
                             </div>
                         </div>
                         <div class="flex gap-3 sm:gap-4 items-start">
                             <div class="mt-0.5 sm:mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded bg-ai-100 dark:bg-ai-500/10 border border-ai-200 dark:border-ai-500/50 flex-shrink-0 flex items-center justify-center text-ai-700 dark:text-ai-400 text-[10px] sm:text-xs font-mono">02</div>
                             <div>
                                 <h4 class="text-sm sm:text-base text-gray-900 dark:text-white font-medium">Agentic AI & MCP</h4>
-                                <p class="text-xs sm:text-sm text-gray-500 font-light mt-0.5">Designing systems where models securely utilize external tools to execute workflows, with human-in-the-loop safeguards.</p>
+                                <p class="text-xs sm:text-sm text-gray-500 font-light mt-0.5">I design systems where models securely utilize external tools to execute workflows, always embedding human-in-the-loop safeguards.</p>
                             </div>
                         </div>
                         <div class="flex gap-3 sm:gap-4 items-start">
                             <div class="mt-0.5 sm:mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded bg-gray-200 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 flex-shrink-0 flex items-center justify-center text-gray-700 dark:text-gray-400 text-[10px] sm:text-xs font-mono">03</div>
                             <div>
                                 <h4 class="text-sm sm:text-base text-gray-900 dark:text-white font-medium">Prompt Evaluation</h4>
-                                <p class="text-xs sm:text-sm text-gray-500 font-light mt-0.5">Moving beyond qualitative testing to rigorous quantitative frameworks ensuring deterministic behavior from probabilistic models.</p>
+                                <p class="text-xs sm:text-sm text-gray-500 font-light mt-0.5">I apply rigorous quantitative frameworks—moving beyond qualitative testing—to ensure deterministic behavior from probabilistic models.</p>
                             </div>
                         </div>
                     </div>
@@ -617,7 +1127,7 @@
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Product Consultant</h3>
                         <div class="text-gray-600 dark:text-gray-400 font-medium mb-2 sm:mb-3 text-xs sm:text-sm">Uttar Pradesh Power Corporation Limited</div>
-                        <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-light">Scaling data-driven electricity theft detection. Managing high-stakes deployment to 8K+ users and securing $50M in critical funding through rapid prototyping.</p>
+                        <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-light">I scale data-driven electricity theft detection products. I managed the high-stakes deployment to 8K+ users and secured $50M in critical funding through rapid prototyping.</p>
                     </div>
 
                     <!-- Talview -->
@@ -629,7 +1139,7 @@
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Product Manager</h3>
                         <div class="text-gray-600 dark:text-gray-400 font-medium mb-2 sm:mb-3 text-xs sm:text-sm">Talview (HRTech SaaS)</div>
-                        <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-light">Owned core candidate experience for enterprise clients globally. Lifted NPS by +29, cut TTFV by 40%, achieved WCAG 2.1 AA compliance, and served 100K+ candidates across major accounts like Cisco and Nvidia.</p>
+                        <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-light">I owned the core candidate experience for enterprise clients globally. I lifted NPS by +29, cut TTFV by 40%, achieved WCAG 2.1 AA compliance, and served 100K+ candidates across major accounts like Cisco and Nvidia.</p>
                     </div>
 
                     <!-- Magnus IT -->
@@ -641,7 +1151,7 @@
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Product Manager</h3>
                         <div class="text-gray-600 dark:text-gray-400 font-medium mb-2 sm:mb-3 text-xs sm:text-sm">Magnus IT Solutions</div>
-                        <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-light">Turned around a struggling Digital File Management System across 14+ state governments. Tripled customer retention rate and met L1 tender qualifications to build a competitive moat.</p>
+                        <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-light">I turned around a struggling Digital File Management System across 14+ state governments. I successfully tripled the customer retention rate and met L1 tender qualifications to build a competitive moat.</p>
                     </div>
                 </div>
 
@@ -709,11 +1219,11 @@
     <section id="contact" class="py-16 md:py-20 relative border-t border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-[#030303] px-4 sm:px-6">
         <div class="max-w-4xl mx-auto text-center reveal" data-cursor="End of File">
             <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-white">Ready to build what's next?</h2>
-            <p class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-8 sm:mb-10 font-light px-4">Looking for an <strong class="text-gray-900 dark:text-white font-semibold">AI Product Builder</strong> or <strong class="text-gray-900 dark:text-white font-semibold">Product Manager</strong> who can navigate ambiguity, design intelligent agentic workflows, and drive quantifiable ARR in high-stakes environments.</p>
+            <p class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-8 sm:mb-10 font-light px-4">I am an <strong class="text-gray-900 dark:text-white font-semibold">AI Product Builder</strong> and <strong class="text-gray-900 dark:text-white font-semibold">Product Manager</strong> who navigates ambiguity, designs intelligent agentic workflows, and drives quantifiable ARR in high-stakes environments.</p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0">
-                <a href="mailto:nripendusharma@outlook.com" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded bg-gray-900 dark:bg-accent-600 text-white font-bold hover:bg-gray-800 dark:hover:bg-accent-500 transition-all shadow-md dark:shadow-[0_0_20px_rgba(14,165,233,0.3)] text-center text-sm sm:text-base" data-cursor="Email">
-                    nripendusharma@outlook.com
+                <a href="mailto:nripendusharma@outlook.com?subject=Booking a Call via Portfolio" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded bg-gray-900 dark:bg-accent-600 text-white font-bold hover:bg-gray-800 dark:hover:bg-accent-500 transition-all shadow-md dark:shadow-[0_0_20px_rgba(14,165,233,0.3)] text-center text-sm sm:text-base" data-cursor="Book Call">
+                    Book a Call
                 </a>
                 <a href="Base_Resume_Nripendu.docx.pdf" download="Nripendu_Sharma_Resume.pdf" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded glass-card text-gray-800 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-white/5 transition-all border border-gray-300 dark:border-gray-700 flex items-center justify-center gap-2 text-sm sm:text-base" data-cursor="Download PDF">
                     <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
@@ -736,7 +1246,6 @@
 
     <!-- AI Chat Assistant Widget -->
     <div id="ai-chat-widget" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none">
-        <!-- Chat Window -->
         <div id="ai-chat-window" class="pointer-events-auto bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl w-[calc(100vw-2rem)] sm:w-96 mb-3 sm:mb-4 overflow-hidden flex flex-col transition-all duration-300 transform translate-y-4 opacity-0 scale-95" style="height: 400px; sm:height: 450px; display: none;">
             <!-- Header -->
             <div class="bg-gray-50 dark:bg-[#111] border-b border-gray-200 dark:border-gray-800 p-3 sm:p-4 flex justify-between items-center">
@@ -773,7 +1282,6 @@
             </div>
         </div>
 
-        <!-- Chat Toggle Button -->
         <button onclick="toggleChat()" class="pointer-events-auto w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gray-900 dark:bg-accent-600 text-white shadow-xl dark:shadow-[0_0_20px_rgba(14,165,233,0.4)] flex items-center justify-center hover:bg-gray-800 dark:hover:bg-accent-500 hover:scale-105 transition-all z-50 border border-gray-700 dark:border-accent-400/30" id="chat-toggle-btn" data-cursor="Chat with AI">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
         </button>
@@ -781,11 +1289,9 @@
 
     <!-- Javascript Logic -->
     <script>
-        // Store chart instances globally for theme updating
         let retentionChartInstance = null;
         let adoptionChartInstance = null;
 
-        // Theme Toggle Logic
         const themeToggleBtn = document.getElementById('theme-toggle');
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
         const lightIcon = document.getElementById('theme-toggle-light-icon');
@@ -829,22 +1335,13 @@
             updateChartsTheme();
         });
 
-        // Mobile Menu Toggle Logic
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        mobileMenuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+        mobileLinks.forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); }); });
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Custom Cursor Logic
         document.addEventListener('DOMContentLoaded', () => {
             const cursor = document.getElementById('custom-cursor');
             const cursorText = document.getElementById('cursor-text');
@@ -866,43 +1363,31 @@
                     });
                 });
             }
-        });
 
-        // Scroll Reveal Animation Logic
-        document.addEventListener('DOMContentLoaded', () => {
             const reveals = document.querySelectorAll('.reveal');
             const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
-            
             const revealOnScroll = new IntersectionObserver(function(entries, observer) {
                 entries.forEach(entry => {
                     if (!entry.isIntersecting) return;
                     entry.target.classList.add('active');
                 });
             }, revealOptions);
-            
             reveals.forEach(reveal => revealOnScroll.observe(reveal));
 
-            // Navbar background logic
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
                     navbar.style.boxShadow = document.documentElement.classList.contains('dark') ? 'none' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)';
-                    if(!document.documentElement.classList.contains('dark')) {
-                        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                    }
+                    if(!document.documentElement.classList.contains('dark')) navbar.style.background = 'rgba(255, 255, 255, 0.95)';
                 } else {
                     navbar.style.boxShadow = 'none';
-                    if(!document.documentElement.classList.contains('dark')) {
-                        navbar.style.background = 'rgba(255, 255, 255, 0.85)';
-                    }
+                    if(!document.documentElement.classList.contains('dark')) navbar.style.background = 'rgba(255, 255, 255, 0.85)';
                 }
             });
 
-            // Initialize Charts
             initCharts();
         });
 
-        // Tab Navigation Logic for Case Studies
         function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(el => {
                 el.classList.add('hidden'); el.classList.remove('block');
@@ -919,19 +1404,37 @@
             btn.classList.add('text-accent-700', 'dark:text-accent-400', 'border-b-2', 'border-accent-500', 'bg-accent-50', 'dark:bg-accent-500/10');
         }
 
-        // Chart.js Initialization
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(modalId + '-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(modalId + '-content');
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
         function initCharts() {
             Chart.defaults.font.family = "'JetBrains Mono', monospace";
             const isDark = document.documentElement.classList.contains('dark');
             const textColor = isDark ? '#9ca3af' : '#4b5563';
             const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
-            
-            // Determine font size based on screen width
             const isMobile = window.innerWidth < 640;
             const chartFontSize = isMobile ? 10 : 12;
             Chart.defaults.font.size = chartFontSize;
             
-            // Chart 1: Customer Retention
             const ctxRetention = document.getElementById('retentionChart').getContext('2d');
             retentionChartInstance = new Chart(ctxRetention, {
                 type: 'bar',
@@ -942,8 +1445,7 @@
                         data: [15, 22, 35, 45],
                         backgroundColor: 'rgba(14, 165, 233, 0.7)',
                         borderColor: 'rgba(2, 132, 199, 1)',
-                        borderWidth: 1,
-                        borderRadius: 4
+                        borderWidth: 1, borderRadius: 4
                     }]
                 },
                 options: {
@@ -956,7 +1458,6 @@
                 }
             });
 
-            // Chart 2: Adoption Curve UPPCL
             const ctxAdoption = document.getElementById('adoptionChart').getContext('2d');
             adoptionChartInstance = new Chart(ctxAdoption, {
                 type: 'doughnut',
@@ -990,21 +1491,18 @@
             });
         }
 
-        // Handle window resize to re-init charts with proper mobile font sizes
         window.addEventListener('resize', () => {
             if(retentionChartInstance) retentionChartInstance.destroy();
             if(adoptionChartInstance) adoptionChartInstance.destroy();
             initCharts();
         });
 
-        // AI Chat Assistant Logic
         let isChatOpen = false;
-        const apiKey = ""; // Set by runtime environment
+        const apiKey = ""; // Add your Gemini API Key here to enable the bot
 
         function toggleChat() {
             const windowEl = document.getElementById('ai-chat-window');
             const toggleBtn = document.getElementById('chat-toggle-btn');
-            
             isChatOpen = !isChatOpen;
             
             if (isChatOpen) {
@@ -1022,18 +1520,10 @@
         function appendMessage(role, text) {
             const msgArea = document.getElementById('ai-chat-messages');
             const isUser = role === 'user';
-            
-            const userStyles = document.documentElement.classList.contains('dark') ? 
-                'bg-gray-800 text-white border border-gray-700' : 'bg-gray-900 text-white shadow-sm';
-            
-            const aiStyles = document.documentElement.classList.contains('dark') ? 
-                'bg-gray-900 text-gray-200 border border-gray-800' : 'bg-gray-100 text-gray-800 border border-gray-200 shadow-sm';
-            
-            const userAvatar = document.documentElement.classList.contains('dark') ? 
-                'bg-gray-700' : 'bg-gray-900';
-
-            const aiAvatar = document.documentElement.classList.contains('dark') ? 
-                'bg-ai-500/20 border border-ai-500/50 text-ai-400' : 'bg-ai-100 border border-ai-200 text-ai-700';
+            const userStyles = document.documentElement.classList.contains('dark') ? 'bg-gray-800 text-white border border-gray-700' : 'bg-gray-900 text-white shadow-sm';
+            const aiStyles = document.documentElement.classList.contains('dark') ? 'bg-gray-900 text-gray-200 border border-gray-800' : 'bg-gray-100 text-gray-800 border border-gray-200 shadow-sm';
+            const userAvatar = document.documentElement.classList.contains('dark') ? 'bg-gray-700' : 'bg-gray-900';
+            const aiAvatar = document.documentElement.classList.contains('dark') ? 'bg-ai-500/20 border border-ai-500/50 text-ai-400' : 'bg-ai-100 border border-ai-200 text-ai-700';
 
             const msgHTML = `
                 <div class="flex gap-2 sm:gap-3 ${isUser ? 'flex-row-reverse' : ''}">
@@ -1045,7 +1535,6 @@
                     </div>
                 </div>
             `;
-            
             msgArea.insertAdjacentHTML('beforeend', msgHTML);
             msgArea.scrollTop = msgArea.scrollHeight;
         }
@@ -1085,7 +1574,6 @@
                 });
 
                 document.getElementById(loadingId).remove();
-                
                 if (response.ok) {
                     const data = await response.json();
                     const aiText = data.candidates[0].content.parts[0].text;
