@@ -3,280 +3,1064 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Consultant Portfolio</title>
+    <title>Nripendu Sharma | AI Product Builder</title>
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='white'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, sans-serif' font-weight='800' font-size='50' fill='%232563eb'>NS</text></svg>">
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon: Light Yellow background with centered "NS" and no blue dot -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><rect width='256' height='256' rx='50' fill='%23FFF59D'/><text x='128' y='175' font-family='Arial, sans-serif' font-size='120' font-weight='bold' fill='%23111827' text-anchor='middle'>NS</text></svg>">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     
+    <!-- Tailwind CSS CDN & Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        gray: { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 400: '#9ca3af', 500: '#6b7280', 600: '#4b5563', 700: '#374151', 800: '#1f2937', 900: '#111827', 950: '#050505' },
+                        accent: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1' }, 
+                        ai: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9' }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 15s linear infinite',
+                        'pulse-glow': 'pulseGlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Theme Initialization -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #374151;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark body {
+            background-color: #050505;
+            color: #e5e7eb;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        
+        @media (pointer: fine) {
+            body, a, button, input, textarea, select { cursor: none !important; }
+        }
+
+        .custom-cursor {
+            position: fixed; top: 0; left: 0;
+            width: 16px; height: 16px;
+            background-color: rgba(14, 165, 233, 0.8);
+            border: 1px solid rgba(2, 132, 199, 1);
+            border-radius: 50%; pointer-events: none; z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        background-color 0.3s ease, border-radius 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; color: transparent; white-space: nowrap;
+            text-transform: uppercase; font-family: 'JetBrains Mono', monospace;
+            font-weight: 600; backdrop-filter: blur(2px);
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+        }
+
+        .custom-cursor.hovering {
+            width: 95px; height: 90px;
+            background-color: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(139, 92, 246, 0.8);
+            border-radius: 50%; color: #fff;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.3);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+        .dark class-nav {
+            background: rgba(5, 5, 5, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .gradient-text {
             background: linear-gradient(135deg, #2dd4bf 0%, #3b82f6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Custom Interactive Cursor Styles */
-        .custom-cursor {
-            width: 8px;
-            height: 8px;
-            background-color: #2dd4bf;
-            position: fixed;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 100;
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+
+        .glass-card {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
-        .cursor-glow {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(45, 212, 191, 0.05) 0%, rgba(59, 130, 246, 0.02) 50%, transparent 100%);
-            position: fixed;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10;
-            will-change: transform;
+        .dark .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: none;
         }
-        /* Hover states for interactive items */
-        .interactive-hover .custom-cursor {
-            width: 24px;
-            height: 24px;
-            background-color: rgba(45, 212, 191, 0.2);
-            border: 1px solid #2dd4bf;
+        
+        .glass-card:hover { transform: translateY(-2px); }
+        .dark .glass-card:hover {
+            border-color: rgba(14, 165, 233, 0.3);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
         }
+
+        .text-gradient {
+            background: linear-gradient(to right, #111827, #4b5563);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .dark .text-gradient {
+            background: linear-gradient(to right, #ffffff, #9ca3af);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        
+        .text-gradient-ai {
+            background: linear-gradient(135deg, #0284c7 0%, #7c3aed 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .dark .text-gradient-ai {
+            background: linear-gradient(135deg, #38bdf8 0%, #a78bfa 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .chart-container { position: relative; width: 100%; max-width: 100%; margin: 0 auto; height: 300px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-300 min-h-screen selection:bg-teal-500 selection:text-white antialiased overflow-x-hidden">
+<body class="antialiased selection:bg-accent-200 dark:selection:bg-accent-500 selection:text-gray-900 dark:selection:text-white transition-colors duration-300">
 
-    <div id="cursor-glow" class="cursor-glow hidden md:block"></div>
-    <div id="custom-cursor" class="custom-cursor hidden md:block"></div>
+    <!-- Custom Cursor Element -->
+    <div id="custom-cursor" class="custom-cursor hidden md:flex">
+        <span id="cursor-text" class="text-center px-2 leading-tight"></span>
+    </div>
 
-    <nav class="sticky top-0 z-40 bg-[#0b0f19]/80 backdrop-blur-md border-b border-slate-900">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="font-bold text-lg text-white tracking-tight">PC<span class="text-teal-400">.</span></a>
-            <div class="flex items-center gap-8 text-sm font-medium">
-                <a href="#case-studies" class="hover:text-white transition-colors">Case Studies</a>
-                <a href="#ai-products" class="hover:text-white transition-colors">AI Initiatives</a>
-                <a href="https://substack.com" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5">
-                    Substack 
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
-                <a href="#contact" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all shadow-lg shadow-blue-600/10">Send the Invitation</a>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3" data-cursor="Builder">
+                    <img src="linkedin pic 1.jpg" alt="Nripendu Sharma" class="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 object-cover shadow-sm" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2NjYyI+PHBhdGggZD0iTTEyIDJDMi40OCAyIDEgMy40OCAxIDEyczEuNDggMTAgMTAgMTAgMTAtMS40OCAxMC0xMFMyMS41MiAyIDEyIDJ6bTAgM2MxLjY2IDAgMyAxLjM0IDMgM3MtMS4zNCAzLTMgMy0zLTEuMzQtMy0zIDEuMzQtMyAzLTN6bTAgMTQuMmMtMi41IDAtNC431C0xLjI4LTYtMy4yMi4wMy0xLjk5IDQtMy4wOCA2LTMuMDhzNS45NyAxLjA5IDYgMy4wOGMtMS4yOSAxLjk0LTMuNSAzLjIyLTYgMy4yMnoiLz48L3N2Zz4='">
+                    <div class="flex-shrink-0 font-bold text-lg tracking-tighter text-gray-900 dark:text-white font-mono">
+                        NS<span class="text-accent-600 dark:text-accent-500">.AI</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8 text-sm font-medium">
+                        <a href="#about" class="text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white transition-colors" data-cursor="Philosophy">Philosophy</a>
+                        <a href="#impact" class="text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white transition-colors" data-cursor="Impact">Impact</a>
+                        <a href="#cases" class="text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white transition-colors" data-cursor="Case Studies">Case Studies</a>
+                        <a href="#ai" class="text-accent-600 dark:text-accent-400 font-semibold hover:text-accent-700 dark:hover:text-white transition-colors" data-cursor="AI Skills">AI & Data</a>
+                        <a href="#experience" class="text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-white transition-colors" data-cursor="Timeline">Journey</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <!-- Theme Toggle Button -->
+                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-sm p-2 transition-colors" data-cursor="Theme">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                    
+                    <a href="https://calendly.com/nripendusharma" target="_blank" class="hidden md:inline-flex items-center justify-center px-4 py-2 border border-accent-200 dark:border-accent-500/50 text-sm font-medium rounded text-accent-700 dark:text-accent-400 bg-accent-50 dark:bg-accent-500/10 hover:bg-accent-100 dark:hover:bg-accent-500 dark:hover:text-white transition-all shadow-sm dark:shadow-[0_0_15px_rgba(14,165,233,0.2)]" data-cursor="Calendar">
+                        Send the Invitation
+                    </a>
+
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-[#050505] border-t border-gray-200 dark:border-gray-800 shadow-xl">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900">Philosophy</a>
+                <a href="#impact" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900">Impact</a>
+                <a href="#cases" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900">Case Studies</a>
+                <a href="#ai" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-accent-600 dark:text-accent-400 hover:bg-gray-50 dark:hover:bg-gray-900">AI & Data</a>
+                <a href="#experience" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900">Journey</a>
+                <a href="https://calendly.com/nripendusharma" target="_blank" class="mobile-link block px-3 py-2 mt-4 text-center rounded-md text-base font-medium bg-accent-600 text-white hover:bg-accent-700">Send the Invitation</a>
             </div>
         </div>
     </nav>
 
-    <header class="max-w-6xl mx-auto px-6 pt-24 pb-20 text-center lg:text-left lg:flex lg:items-center lg:justify-between gap-12 relative z-20">
-        <div class="max-w-2xl">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-teal-500/10 text-teal-400 border border-teal-500/20 mb-6">
-                <span class="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse"></span> Available for Strategic Consulting
-            </span>
-            <h1 class="text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-6">
-                Product Consultant & <span class="gradient-text">AI Systems Architect</span>
-            </h1>
-            <p class="text-lg text-slate-400 leading-relaxed mb-8">
-                Building high-impact core products and agentic workflows. Specializing in conversion optimizations, ecosystem pivots, and shipping intelligent automation models that map directly to enterprise business growth.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <a href="#contact" class="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-center transition-all shadow-lg shadow-blue-600/20">Send the Invitation</a>
-                <a href="#case-studies" class="w-full sm:w-auto px-6 py-3 bg-slate-900 hover:bg-slate-800 text-slate-200 font-medium rounded-xl text-center border border-slate-800 transition-all">Explore Case Studies</a>
-            </div>
-        </div>
-        <div class="hidden lg:block w-80 h-80 rounded-3xl bg-gradient-to-br from-teal-500/10 to-blue-500/10 border border-slate-800/60 relative overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
-            <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-blue-500/20 rounded-full filter blur-3xl"></div>
-        </div>
-    </header>
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-32 overflow-hidden px-4 sm:px-6 lg:px-8">
+        <div class="absolute top-1/4 right-0 md:right-10 -z-10 w-72 h-72 md:w-96 md:h-96 bg-ai-200/50 dark:bg-ai-600/10 rounded-full blur-[80px] md:blur-[100px] animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 md:left-10 -z-10 w-64 h-64 md:w-80 md:h-80 bg-accent-200/50 dark:bg-accent-600/10 rounded-full blur-[60px] md:blur-[80px]"></div>
 
-    <main class="max-w-6xl mx-auto px-6 py-12 relative z-20">
-        
-        <section id="case-studies" class="mb-32">
-            <div class="mb-12">
-                <h2 class="text-3xl font-bold text-white tracking-tight">Core Product Deliverables</h2>
-                <p class="text-slate-400 mt-2">Deep-dive breakdowns of core features, architectural pivots, and core metric ownership.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-                
-                <div class="bg-slate-900/60 backdrop-blur-sm border border-slate-800/80 rounded-2xl p-6 flex flex-col h-full transition-all hover:border-slate-700 group">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-teal-400">Public Sector</span>
-                            <span class="text-xs text-slate-500">Scale Initiative</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-teal-400 transition-colors">Govtech Enforcement</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Architected compliance structures and regulatory workflow updates to streamline municipal monitoring and identity verifications across distributed state infrastructure frameworks.
-                        </p>
-                        <div class="border-t border-slate-800/80 pt-4 mt-2">
-                            <span class="text-[11px] font-medium uppercase tracking-wider text-slate-500 block mb-1">Business Impact</span>
-                            <p class="text-sm font-semibold text-white">42% Drop in Operational Processing Friction</p>
-                        </div>
-                    </div>
-                    <div class="mt-auto pt-6">
-                        <button onclick="openModal('govtech')" class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm rounded-xl transition-colors border border-slate-700/50">
-                            See Full Case Study
-                        </button>
-                    </div>
+        <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-12">
+            <div class="flex-1 reveal text-center md:text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono tracking-wide uppercase mb-6 shadow-sm dark:shadow-none mx-auto md:mx-0 border border-ai-200 dark:border-ai-500/30 bg-ai-50 dark:bg-ai-500/10 text-ai-700 dark:text-ai-400" data-cursor="Role">
+                    <span class="w-2 h-2 rounded-full bg-ai-500 animate-pulse"></span>
+                    AI Product Builder & Senior PM
                 </div>
-
-                <div class="bg-slate-900/60 backdrop-blur-sm border border-slate-800/80 rounded-2xl p-6 flex flex-col h-full transition-all hover:border-slate-700 group">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-teal-400">Talview</span>
-                            <span class="text-xs text-slate-500">Core Revamp</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-teal-400 transition-colors">Candidate UX</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Owned and executed the comprehensive user experience revamp of the candidate-side assessment workflows. Removed drop-off vectors across complex, multi-tiered device checking modules.
-                        </p>
-                        <div class="border-t border-slate-800/80 pt-4 mt-2">
-                            <span class="text-[11px] font-medium uppercase tracking-wider text-slate-500 block mb-1">Business Impact</span>
-                            <p class="text-sm font-semibold text-white">+34% Funnel Completion Rate Improvement</p>
-                        </div>
-                    </div>
-                    <div class="mt-auto pt-6">
-                        <button onclick="openModal('candidate')" class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm rounded-xl transition-colors border border-slate-700/50">
-                            See Full Case Study
-                        </button>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900/60 backdrop-blur-sm border border-slate-800/80 rounded-2xl p-6 flex flex-col h-full transition-all hover:border-slate-700 group">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-teal-400">Enterprise Asset</span>
-                            <span class="text-xs text-slate-500">Architecture</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-teal-400 transition-colors">DMS Pivot</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            Steered the architectural shift of the central Document Management System. Transitioned legacied storage layers to high-concurrency cloud environments to secure B2B transaction speeds.
-                        </p>
-                        <div class="border-t border-slate-800/80 pt-4 mt-2">
-                            <span class="text-[11px] font-medium uppercase tracking-wider text-slate-500 block mb-1">Business Impact</span>
-                            <p class="text-sm font-semibold text-white">99.95% API Reliability Under Peak Traffic</p>
-                        </div>
-                    </div>
-                    <div class="mt-auto pt-6">
-                        <button onclick="openModal('dms')" class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm rounded-xl transition-colors border border-slate-700/50">
-                            See Full Case Study
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="ai-products" class="mb-32">
-            <div class="mb-12">
-                <h2 class="text-3xl font-bold text-white tracking-tight">Agentic AI Workflows & Architecture</h2>
-                <p class="text-slate-400 mt-2">Production-ready automation frameworks built for enterprise data discovery.</p>
-            </div>
-
-            <div class="bg-gradient-to-r from-slate-900 to-slate-900/40 border border-slate-800 rounded-2xl p-8">
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-                    <div class="max-w-2xl">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="px-2.5 py-0.5 rounded bg-blue-500/10 text-blue-400 text-xs font-semibold border border-blue-500/20">GitHub Live</span>
-                            <span class="text-sm text-slate-500">n8n Engine & Agent Workflows</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-3">Echo-Loop Insight Engine</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                            An automated LLM pipeline parsing unstructured customer communications to identify and stop revenue drops. Built to analyze B2B lead leakage parameters and execute autonomous travel curation logic patterns using multi-agent routing.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs text-slate-300 font-mono">Agentic RAG</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs text-slate-300 font-mono">n8n Automation</span>
-                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs text-slate-300 font-mono">Intent Mapping</span>
-                        </div>
-                    </div>
-                    <a href="https://github.com" target="_blank" class="shrink-0 px-5 py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium text-sm rounded-xl border border-slate-700 flex items-center justify-center gap-2 transition-all">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
-                        View Source Repository
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-gradient leading-[1.1] mb-6 font-sans">
+                    Architecting <span class="text-gradient-ai font-sans">AI-native systems</span> for massive enterprise scale.
+                </h1>
+                <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 md:mb-10 leading-relaxed max-w-2xl font-light font-sans">
+                    Empowering enterprise B2B and GovTech platforms powered by data. Synthesizing complex data parameters to unlock <strong class="text-gray-900 dark:text-white font-semibold">₹415 Cr ($50M) in funding</strong> via operational intelligence and designing <strong class="text-gray-900 dark:text-white font-semibold">Agentic workflows</strong> that automate complex decisions for 100K+ users.
+                </p>
+                <div class="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center md:justify-start">
+                    <a href="Base_Resume_Nripendu.docx.pdf" download="Nripendu_Sharma_Resume.pdf" class="w-full sm:w-auto justify-center px-6 py-3 rounded bg-gray-900 dark:bg-white text-white dark:text-black font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors shadow-md flex items-center gap-2" data-cursor="Download PDF">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download Resume
+                    </a>
+                    <a href="https://www.linkedin.com/in/nripendusharma/" target="_blank" class="w-full sm:w-auto justify-center px-6 py-3 rounded glass-card text-gray-700 dark:text-white font-medium hover:text-gray-900 dark:hover:border-gray-500 flex items-center gap-2" data-cursor="Connect">
+                        LinkedIn ↗
+                    </a>
+                    <a href="https://substack.com/@nripendusharma" target="_blank" class="w-full sm:w-auto justify-center px-6 py-3 rounded glass-card text-gray-700 dark:text-white font-medium hover:text-gray-900 dark:hover:border-gray-500 flex items-center gap-2" data-cursor="Substack">
+                        Substack ↗
                     </a>
                 </div>
             </div>
-        </section>
 
-        <section id="contact" class="border-t border-slate-900 pt-20 pb-12">
-            <div class="max-w-4xl mx-auto px-6">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold text-white tracking-tight mb-4">Send the Invitation</h2>
-                    <p class="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
-                        Select an available timeslot directly on the calendar interface below. Once finalized, meeting invites and links sync to all platforms instantly.
-                    </p>
+            <!-- Hero Image -->
+            <div class="w-full md:w-1/3 flex justify-center reveal mt-8 md:mt-0">
+                <div class="relative w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80" data-cursor="Nripendu">
+                    <div class="absolute inset-0 border border-accent-300 dark:border-accent-500/30 rounded-2xl rotate-3 transition-transform duration-500 hover:rotate-6 bg-white/50 dark:bg-transparent"></div>
+                    <div class="absolute inset-0 border border-ai-300 dark:border-ai-500/30 rounded-2xl -rotate-3 transition-transform duration-500 hover:-rotate-6 bg-white/50 dark:bg-transparent"></div>
+                    <img src="linkedin pic 1.jpg" alt="Nripendu Sharma" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-xl border border-gray-100 dark:border-none dark:shadow-[0_0_40px_rgba(14,165,233,0.15)] dark:filter dark:grayscale-[20%] dark:contrast-125" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2RkZCI+PHBhdGggZD0iTTEyIDJDMi40OCAyIDEgMy40OCAxIDEyczEuNDggMTAgMTAgMTAgMTAtMS40OCAxMC0xMFMyMS41MiAyIDEyIDJ6bTAgM2MxLjY2IDAgMyAxLjM0IDMgM3MtMS4zNCAzLTMgMy0zLTEuMzQtMy0zIDEuMzQtMyAzLTN6bTAgMTQuMmMtMi41IDAtNC43MS0xLjI4LTYtMy4yMi4wMy0xLjk5IDQtMy4wOCA2LTMuMDhzNS45NyAxLjA5IDYgMy4wOGMtMS4yOSAxLjk0LTMuNSAzLjIyLTYgMy4yMnoiLz48L3N2Zz4='">
+                    <div class="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 bg-white dark:bg-[#050505] border border-gray-200 dark:border-gray-800 shadow-sm dark:shadow-none p-1.5 sm:p-2 rounded text-[9px] sm:text-[10px] font-mono text-gray-600 dark:text-gray-400 z-20">
+                        STATUS: <span class="text-green-600 dark:text-green-400 font-bold">ONLINE</span>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div id="booking-success-message" class="hidden max-w-2xl mx-auto mb-6 p-4 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center gap-3 text-teal-400 text-sm animate-fadeIn">
-                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <div>
-                        <span class="font-bold block text-white">Invitation Sent!</span>
-                        The strategy slot has been secured. Confirmations and room links are synced across platforms.
+    <!-- About Me Section -->
+    <section id="about" class="py-16 md:py-24 relative border-t border-gray-100 dark:border-white/5 bg-white dark:bg-[#050505] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-8 text-gray-900 dark:text-white" data-cursor="About">Product Philosophy</h2>
+            <div class="space-y-6 text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-light font-sans">
+                <p>
+                    Solving difficult product challenges requires moving beyond clean digital ecosystems and into the complex reality of physical operations, distributed workforces, and intricate stakeholder matrices. Product philosophy is rooted in translating fragmented field workflows and ambiguous business objectives into scalable, auditable systems of record. Over the past eight years, career focus has targeted GovTech and enterprise HRTech—sectors characterized by high user resistance, intricate compliance requirements, and situations where the cost of failure is measured in millions of dollars and lost public trust.
+                </p>
+                <p>
+                    Operating at the intersection of deep user empathy and aggressive business outcomes, the approach to product management is fundamentally systemic. Conducted immersive discovery sessions with frontline field officers in low-connectivity regions, defined rigorous acceptance criteria for a remote engineering team of twelve, and architected closed-loop machine learning pipelines for anomaly detection to convert abstract visions into tangible products that move the needle.
+                </p>
+                <p>
+                    Driven by the challenge of operating in high ambiguity, dismantling complex, high-stakes problems into prioritized, executable roadmaps validated by continuous experimentation and rigorous data analytics. Leadership, in this experience, is about providing extreme clarity to diverse teams—from IAS-level government executives to external technology vendors—aligning them behind a unified metric of success.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Dashboard Section -->
+    <section id="impact" class="py-16 md:py-20 relative border-t border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-[#0a0a0a] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-8 md:mb-12 reveal text-center md:text-left">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-gray-900 dark:text-white" data-cursor="Analyze Data">Impact Dashboard</h2>
+                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">Quantifiable outcomes driven by systematic product discovery and technical optimization.</p>
+            </div>
+
+            <!-- Responsive Metrics Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 reveal">
+                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-accent-500" data-cursor="Scale">
+                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">ARR Uplift</div>
+                    <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">₹58 Cr+</div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Delivered a 14% revenue gain via automated digital auditing for UPPCL. <a href="#cases" class="text-accent-500 hover:underline">Learn more ↗</a></p>
+                </div>
+                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-ai-500" data-cursor="Scale">
+                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">Funding Unlocked</div>
+                    <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">₹415 Cr</div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Secured central development capital through rapid MVP validation cycles. <a href="#cases" class="text-accent-500 hover:underline">Learn more ↗</a></p>
+                </div>
+                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-green-500" data-cursor="Growth">
+                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">Users Served</div>
+                    <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">100K+</div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Managed secure assessment onboarding for major enterprise SaaS accounts. <a href="#cases" class="text-accent-500 hover:underline">Learn more ↗</a></p>
+                </div>
+                <div class="glass-card p-5 sm:p-6 rounded border-l-4 border-l-purple-500" data-cursor="Growth">
+                    <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-1 font-mono uppercase">NPS Lift</div>
+                    <div class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">+29<span class="text-base sm:text-lg text-gray-400 dark:text-gray-500 ml-1 font-medium">pts</span></div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Elevated assessment satisfaction metrics following systematic friction audits. <a href="#cases" class="text-accent-500 hover:underline">Learn more ↗</a></p>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 reveal">
+                <div class="glass-card p-5 sm:p-6 rounded flex flex-col h-full" data-cursor="View Chart">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Customer Retention Growth</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Strategic discovery pivoted Magnus IT churn into long-term retention.</p>
+                    <div class="flex-grow flex items-center justify-center w-full">
+                        <div class="chart-container w-full">
+                            <canvas id="retentionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 sm:p-6 rounded flex flex-col h-full" data-cursor="View Chart">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Field Officer Adoption (UPPCL)</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">Rapid onboarding of 8K+ frontline officers post-MVP launch.</p>
+                    <div class="flex-grow flex items-center justify-center w-full">
+                        <div class="chart-container w-full">
+                            <canvas id="adoptionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="cases" class="py-16 md:py-24 relative border-t border-gray-100 dark:border-white/5 bg-white dark:bg-[#050505] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-8 md:mb-12 reveal text-center md:text-left">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-gray-900 dark:text-white" data-cursor="Case Studies">Featured Case Studies</h2>
+                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto md:mx-0">Deep-dives into product strategy, continuous discovery, and results-focused execution in high-complexity ecosystems.</p>
+            </div>
+
+            <!-- Custom Tab Navigation -->
+            <div class="flex overflow-x-auto no-scrollbar gap-2 mb-8 pb-2 border-b border-gray-200 dark:border-gray-800 reveal" id="case-tabs">
+                <button id="btn-uppcl" onclick="switchTab('case-uppcl', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 bg-accent-50 dark:bg-accent-500/10 text-accent-700 dark:text-accent-400 border-b-2 border-accent-500 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
+                    [0] GovTech Enforcement
+                </button>
+                <button id="btn-talview-1" onclick="switchTab('case-talview-1', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
+                    [1] Candidate UX
+                </button>
+                <button id="btn-magnus" onclick="switchTab('case-magnus', this)" class="tab-btn px-4 sm:px-6 py-2.5 sm:py-3 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 font-mono text-xs sm:text-sm whitespace-nowrap transition-all" data-cursor="Select">
+                    [2] DMS Pivot
+                </button>
+            </div>
+
+            <!-- Tab Content Area -->
+            <div class="relative min-h-[400px] reveal">
+                
+                <!-- CASE 0: UPPCL -->
+                <div id="case-uppcl" class="tab-content block animate-fade-in" data-cursor="Reading">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 space-y-6 sm:space-y-8">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">Scaling Data-Driven Electricity Theft Detection</h3>
+                                <p class="text-accent-600 dark:text-accent-400 font-mono text-xs sm:text-sm mb-4">UPPCL • Product Consultant • 2024 - Present</p>
+                                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+                                    Led the transformation of fragmented, manual field operations into an integrated operational intelligence platform. Successfully shipped a high-fidelity enforcement MVP to 8,000+ field officers across 5 districts in 6 months.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                                <div class="glass-card p-4 sm:p-5 border-t-4 border-t-accent-500 bg-gray-50/50 dark:bg-transparent">
+                                    <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-2">> Context</h4>
+                                    <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-sans">Massive revenue leakage due to undetected electricity theft. Field teams operated without structured parameters. Opportunity: Target a ₹58 Cr ARR uplift via optimized bill recovery workflows.</p>
+                                </div>
+                                <div class="glass-card p-4 sm:p-5 border-t-4 border-t-ai-500 bg-gray-50/50 dark:bg-transparent">
+                                    <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-2">> Stakeholders</h4>
+                                    <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-sans"><strong>Primary:</strong> 8,000+ frontline enforcement officers (low technical literacy).<br><strong>Secondary:</strong> Senior IAS-level state government leadership, engineering vendors.</p>
+                                </div>
+                            </div>
+
+                            <!-- Reconstructed UI Dashboard Snippet inside UPPCL content -->
+                            <div class="mt-6 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg bg-gray-50 dark:bg-[#0a0a0a]">
+                                <div class="bg-gray-200/50 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
+                                    <div class="flex items-center gap-2">
+                                        <span class="flex gap-1.5">
+                                            <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+                                            <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                                            <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
+                                        </span>
+                                        <span class="text-[10px] font-mono font-medium text-gray-500 dark:text-gray-400 ml-2 bg-white dark:bg-[#111] px-2 py-0.5 rounded-md border border-gray-200 dark:border-gray-800">raid.uppcl.org/intelligence/target-9021</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-5 sm:p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h6 class="text-sm font-bold text-gray-900 dark:text-white font-mono uppercase tracking-tight">Raid Target Assessment</h6>
+                                        <span class="px-2 py-1 bg-red-100 dark:bg-red-500/20 text-red-700 dark:text-red-400 text-[10px] font-bold rounded-md uppercase tracking-wider flex items-center gap-1 animate-pulse">
+                                            <div class="w-1.5 h-1.5 rounded-full bg-red-500"></div> Critical Risk
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <div class="col-span-1 space-y-4">
+                                            <div class="p-4 bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 rounded-lg shadow-sm">
+                                                <div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold tracking-wider mb-1">Theft Probability Model</div>
+                                                <div class="text-3xl font-bold text-red-600 dark:text-red-500">89.4%</div>
+                                                <div class="text-[10px] text-red-500 mt-1 flex items-center gap-1 font-mono">
+                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                                                    +12% in 48hrs
+                                                </div>
+                                            </div>
+                                            <div class="p-4 bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 rounded-lg shadow-sm">
+                                                <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-2 font-mono">
+                                                    <li class="flex justify-between"><span class="font-semibold text-gray-800 dark:text-gray-200">Connection:</span> <span>440-291A</span></li>
+                                                    <li class="flex justify-between"><span class="font-semibold text-gray-800 dark:text-gray-200">Sanctioned:</span> <span>2.0 kW</span></li>
+                                                    <li class="flex justify-between"><span class="font-semibold text-gray-800 dark:text-gray-200">Est. Actual:</span> <span class="text-red-600 dark:text-red-400 font-bold">7.8 kW</span></li>
+                                                    <li class="flex justify-between"><span class="font-semibold text-gray-800 dark:text-gray-200">Bypass Type:</span> <span>Direct Tapping</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-span-1 md:col-span-2 bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 rounded-lg p-4 shadow-sm flex flex-col justify-between">
+                                            <div class="text-[10px] text-gray-500 dark:text-gray-400 font-mono uppercase mb-4 font-bold tracking-wider">30-Day Sub-Station Load Variance vs Billing</div>
+                                            <div class="flex items-end gap-1 h-32 border-b border-l border-gray-200 dark:border-gray-700 pl-1 pb-1">
+                                                <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[25%] rounded-t-sm"></div>
+                                                <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[22%] rounded-t-sm"></div>
+                                                <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[28%] rounded-t-sm"></div>
+                                                <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[24%] rounded-t-sm"></div>
+                                                <div class="w-full bg-accent-500/40 hover:bg-accent-500/60 transition-colors h-[26%] rounded-t-sm"></div>
+                                                <div class="w-full bg-red-500/60 hover:bg-red-500/80 transition-colors h-[75%] rounded-t-sm relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[8px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity">Spike Detected</div></div>
+                                                <div class="w-full bg-red-500/70 hover:bg-red-500/90 transition-colors h-[85%] rounded-t-sm"></div>
+                                                <div class="w-full bg-red-500/80 hover:bg-red-500 transition-colors h-[95%] rounded-t-sm relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[8px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity">Peak Unmetered Load</div></div>
+                                                <div class="w-full bg-red-500/70 hover:bg-red-500/90 transition-colors h-[80%] rounded-t-sm"></div>
+                                                <div class="w-full bg-red-500/60 hover:bg-red-500/80 transition-colors h-[70%] rounded-t-sm"></div>
+                                                <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[5%] rounded-t-sm relative group"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[8px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap z-10 transition-opacity font-sans">Meter Bypassed</div></div>
+                                                <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[2%] rounded-t-sm"></div>
+                                                <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[3%] rounded-t-sm"></div>
+                                                <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[1%] rounded-t-sm"></div>
+                                                <div class="w-full bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors h-[2%] rounded-t-sm"></div>
+                                            </div>
+                                            <div class="text-[9px] sm:text-[10px] text-gray-500 dark:text-gray-400 mt-2 flex justify-between font-mono">
+                                                <span>Day 1 (Normal)</span>
+                                                <span class="text-red-500 font-bold">Day 14 (Load Spike)</span>
+                                                <span class="text-gray-600 dark:text-gray-300 font-bold">Day 28 (Bypass)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800 flex justify-between items-center">
+                                        <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 italic flex-1 font-sans">Reconstructed visual representation of the proprietary UPPCL Raid Analytics interface.</p>
+                                        <button class="px-3 py-1.5 bg-accent-600 hover:bg-accent-700 text-white text-[10px] sm:text-xs font-bold rounded shadow-sm flex items-center gap-1.5 transition-colors uppercase tracking-wide">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                                            Dispatch Officer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button onclick="openModal('govtech')" class="px-5 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-semibold rounded shadow-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors inline-flex items-center gap-2" data-cursor="Open Modal">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    Read Full Case Study
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar Stats -->
+                        <div class="space-y-6">
+                            <div class="glass-card p-5 sm:p-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900/50 dark:to-transparent border border-gray-200 dark:border-accent-500/20">
+                                <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-4 uppercase">Business Impact</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="text-xl sm:text-2xl font-mono text-gray-900 dark:text-white">₹58 Cr+</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">ARR Uplift (14%)</div>
+                                    </div>
+                                    <div class="h-px bg-gray-200 dark:bg-white/5 w-full"></div>
+                                    <div>
+                                        <div class="text-xl sm:text-2xl font-mono text-gray-900 dark:text-white">₹415 Cr</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Funding Unlocked</div>
+                                    </div>
+                                    <div class="h-px bg-gray-200 dark:bg-white/5 w-full"></div>
+                                    <div>
+                                        <div class="text-xl sm:text-2xl font-mono text-gray-900 dark:text-white">8K+</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Field Officers</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-2 relative overflow-hidden min-h-[650px] shadow-2xl shadow-black/40">
-                    <div class="calendly-inline-widget w-full h-[650px]" data-url="https://calendly.com/nripendusharma?hide_landing_page_details=1&hide_gdpr_banner=1" style="min-width:320px;"></div>
-                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                <!-- CASE 1: Talview Redesign -->
+                <div id="case-talview-1" class="tab-content hidden animate-fade-in" data-cursor="Reading">
+                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 space-y-6 sm:space-y-8">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">Candidate UX Redesign & Activation</h3>
+                                <p class="text-accent-600 dark:text-accent-400 font-mono text-xs sm:text-sm mb-4">Talview • Product Manager • 2022 - 2023</p>
+                                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light font-sans">
+                                    Drove a +29 point NPS increase through an end-to-end candidate application redesign. Spearheaded friction-point analysis and prioritized product enhancements using a high-impact, data-driven framework.
+                                </p>
+                            </div>
+
+                            <div class="glass-card p-5 sm:p-6 border-l-4 border-l-green-500 bg-gray-50/50 dark:bg-transparent">
+                                <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-3">> Execution & Analytics</h4>
+                                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4 font-light font-sans">
+                                    Accelerated candidate time-to-value by 40% by orchestrating a friction-audit-led redesign of the onboarding flow. Engineered funnel tracking via <strong>Mixpanel</strong> to isolate conversion bottlenecks, eliminated high-abandonment steps, and validated contextual in-product nudges through rigorous A/B testing across 11 cohorts.
+                                </p>
+                            </div>
+
+                            <div class="mt-6 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg bg-gray-50 dark:bg-[#0a0a0a]">
+                                <div class="bg-gray-200/50 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
+                                    <div class="flex items-center gap-2">
+                                        <span class="flex gap-1.5">
+                                            <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+                                            <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                                            <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
+                                        </span>
+                                        <span class="text-[10px] font-mono font-medium text-gray-500 dark:text-gray-400 ml-2 bg-white dark:bg-[#111] px-2 py-0.5 rounded-md border border-gray-200 dark:border-gray-800">mixpanel.talview.internal / onboarding-funnel</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-5 sm:p-6">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <h6 class="text-sm font-bold text-gray-900 dark:text-white font-mono uppercase tracking-tight">Conversion Funnel: V1 vs. Redesign</h6>
+                                        <div class="flex gap-4 text-[10px] font-mono font-bold uppercase">
+                                            <span class="flex items-center gap-1.5 text-gray-500"><div class="w-2 h-2 bg-gray-300 dark:bg-gray-700 rounded-sm"></div> Legacy Flow</span>
+                                            <span class="flex items-center gap-1.5 text-green-600 dark:text-green-400"><div class="w-2 h-2 bg-green-500 rounded-sm"></div> Redesign (Live)</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="space-y-5">
+                                        <div>
+                                            <div class="flex justify-between text-xs font-mono text-gray-600 dark:text-gray-400 mb-1.5">
+                                                <span>1. Landing Page Entry</span>
+                                                <span>100%</span>
+                                            </div>
+                                            <div class="w-full h-4 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden relative">
+                                                <div class="absolute inset-y-0 left-0 w-full bg-gray-300 dark:bg-gray-700"></div>
+                                                <div class="absolute inset-y-0 left-0 w-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.4)] transition-all duration-1000"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs font-mono text-gray-600 dark:text-gray-400 mb-1.5">
+                                                <span>2. Security Context Nudge (New)</span>
+                                                <span class="text-green-600 dark:text-green-400 font-bold">92%</span>
+                                            </div>
+                                            <div class="w-full h-4 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden relative">
+                                                <div class="absolute inset-y-0 left-0 w-[42%] bg-gray-300 dark:bg-gray-700"></div>
+                                                <div class="absolute inset-y-0 left-0 w-[92%] bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.4)] transition-all duration-1000"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs font-mono text-gray-600 dark:text-gray-400 mb-1.5">
+                                                <span>3. Hardware Permissions Granted</span>
+                                                <span class="text-green-600 dark:text-green-400 font-bold">85% <span class="text-gray-400 font-light ml-1">(Legacy: 35%)</span></span>
+                                            </div>
+                                            <div class="w-full h-4 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden relative group">
+                                                <div class="absolute inset-y-0 left-0 w-[35%] bg-gray-300 dark:bg-gray-700"></div>
+                                                <div class="absolute inset-y-0 left-0 w-[85%] bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.4)] transition-all duration-1000"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs font-mono text-gray-600 dark:text-gray-400 mb-1.5">
+                                                <span>4. Identity Verified & Assessment Started</span>
+                                                <span class="text-green-600 dark:text-green-400 font-bold">78% <span class="text-gray-400 font-light ml-1">(Legacy: 18%)</span></span>
+                                            </div>
+                                            <div class="w-full h-4 bg-gray-200 dark:bg-gray-800 rounded overflow-hidden relative group">
+                                                <div class="absolute inset-y-0 left-0 w-[18%] bg-gray-300 dark:bg-gray-700"></div>
+                                                <div class="absolute inset-y-0 left-0 w-[78%] bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.4)] transition-all duration-1000"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-3">
+                                        <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 italic flex-1">Reconstructed visualization of the friction audit impact.</p>
+                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400 text-[10px] font-bold rounded-md font-mono">+60% Net Conversion</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button onclick="openModal('candidate')" class="px-5 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-semibold rounded shadow-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors inline-flex items-center gap-2" data-cursor="Open Modal">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    Read Full Case Study
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar Stats -->
+                        <div class="space-y-6">
+                            <div class="glass-card p-5 sm:p-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900/50 dark:to-transparent border border-gray-200 dark:border-green-500/20">
+                                <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-4 uppercase">Business Impact</h4>
+                                <ul class="space-y-4">
+                                    <li>
+                                        <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">+29 pts</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">NPS Lift</div>
+                                    </li>
+                                    <li class="h-px bg-gray-200 dark:bg-white/5 w-full"></li>
+                                    <li>
+                                        <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">40%</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Time-to-Value Reduction</div>
+                                    </li>
+                                    <li class="h-px bg-gray-200 dark:bg-white/5 w-full"></li>
+                                    <li>
+                                        <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">100K+</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Candidates Served</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+
+                <!-- CASE 2: Magnus IT -->
+                <div id="case-magnus" class="tab-content hidden animate-fade-in" data-cursor="Reading">
+                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 space-y-6 sm:space-y-8">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">DMS Turnaround & Tender Qualification</h3>
+                                <p class="text-accent-600 dark:text-accent-400 font-mono text-xs sm:text-sm mb-4">Magnus IT • Product Manager • 2018 - 2022</p>
+                                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed font-light font-sans">
+                                    Orchestrated a successful turnaround for a Digital File Management System (DMS) deployed across 14+ state government clients. Successfully halted product churn by restructuring product discovery and realigning feature development with clerical workflow pain points.
+                                </p>
+                            </div>
+                            <div class="glass-card p-5 sm:p-6 border-l-4 border-l-orange-500 bg-gray-50/50 dark:bg-transparent">
+                                <h4 class="text-gray-900 dark:text-white font-mono text-xs sm:text-sm mb-3">> Strategic Pivot</h4>
+                                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mb-4 font-light font-sans">
+                                    Spearheaded a new product discovery lifecycle, replacing top-down assumptions with direct end-user research. Reprioritized organizational OKRs to focus on identified friction points, streamlining platform utility and improving system speed to better serve high-stakes government operations.
+                                </p>
+                            </div>
+
+                            <div class="mt-6 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-lg bg-gray-50 dark:bg-[#0a0a0a]">
+                                <div class="bg-gray-200/50 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center">
+                                    <div class="flex items-center gap-2">
+                                        <span class="flex gap-1.5">
+                                            <div class="w-3 h-3 rounded-full bg-red-400/80"></div>
+                                            <div class="w-3 h-3 rounded-full bg-yellow-400/80"></div>
+                                            <div class="w-3 h-3 rounded-full bg-green-400/80"></div>
+                                        </span>
+                                        <span class="text-[10px] font-mono font-medium text-gray-500 dark:text-gray-400 ml-2 bg-white dark:bg-[#111] px-2 py-0.5 rounded-md border border-gray-200 dark:border-gray-800">magnus-analytics.internal/dms-velocity</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-5 sm:p-6">
+                                    <div class="flex items-center justify-between mb-6">
+                                        <h6 class="text-sm font-bold text-gray-900 dark:text-white font-mono uppercase tracking-tight">Average File Turnaround Time (TAT)</h6>
+                                        <span class="px-2 py-1 bg-orange-100 dark:bg-orange-500/20 text-orange-700 dark:text-orange-400 text-[10px] font-bold rounded-md uppercase tracking-wider flex items-center gap-1.5">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                                            -60% Reduction
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="flex items-end gap-2 sm:gap-4 h-40 border-b-2 border-l-2 border-gray-200 dark:border-gray-700 pl-2 pb-1 relative mt-8">
+                                        <div class="absolute -left-8 top-0 text-[10px] text-gray-500 font-mono">48h+</div>
+                                        <div class="absolute -left-8 bottom-0 text-[10px] text-gray-500 font-mono">0h</div>
+                                        <div class="w-full bg-gray-300 dark:bg-gray-700 h-[100%] rounded-t-sm relative group"></div>
+                                        <div class="w-full bg-gray-300 dark:bg-gray-700 h-[92%] rounded-t-sm"></div>
+                                        <div class="w-full bg-gray-300 dark:bg-gray-700 h-[96%] rounded-t-sm"></div>
+                                        <div class="w-full bg-gray-300 dark:bg-gray-700 h-[88%] rounded-t-sm relative group"></div>
+                                        <div class="absolute left-[50%] top-0 bottom-0 border-l-2 border-dashed border-orange-500/50 z-0"></div>
+                                        <div class="w-full bg-orange-400/70 dark:bg-orange-500/60 h-[55%] rounded-t-sm relative group z-10 ml-2"></div>
+                                        <div class="w-full bg-orange-400/80 dark:bg-orange-500/80 h-[45%] rounded-t-sm z-10"></div>
+                                        <div class="w-full bg-orange-500 dark:bg-orange-500 h-[40%] rounded-t-sm relative group z-10"></div>
+                                    </div>
+                                    
+                                    <div class="text-[9px] sm:text-[10px] text-gray-500 dark:text-gray-400 mt-4 flex justify-between font-mono font-bold">
+                                        <span>Q1 (Bloated UI)</span>
+                                        <span class="text-orange-600 dark:text-orange-400 ml-4">UX Intervention</span>
+                                        <span>Q3 (Optimized)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button onclick="openModal('dms')" class="px-5 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-semibold rounded shadow-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors inline-flex items-center gap-2" data-cursor="Open Modal">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    Read Full Case Study
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar Stats -->
+                        <div class="space-y-6">
+                            <div class="glass-card p-5 sm:p-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900/50 dark:to-transparent border border-gray-200 dark:border-orange-500/20">
+                                <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-4 uppercase">Business Impact</h4>
+                                <ul class="space-y-4">
+                                    <li>
+                                        <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">3x</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Retention Increase</div>
+                                    </li>
+                                    <li class="h-px bg-gray-200 dark:bg-white/5 w-full"></li>
+                                    <li>
+                                        <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">60%</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Turnaround Time Cut</div>
+                                    </li>
+                                    <li class="h-px bg-gray-200 dark:bg-white/5 w-full"></li>
+                                    <li>
+                                        <div class="text-lg sm:text-xl font-mono text-gray-900 dark:text-white">14+</div>
+                                        <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 uppercase">Gov Clients Retained</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Product Management Expertise -->
+    <section id="ai" class="py-16 md:py-24 relative bg-gray-50 dark:bg-[#0a0a0a] border-t border-gray-100 dark:border-white/5 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-8 md:mb-12 reveal text-center md:text-left">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-gray-900 dark:text-white" data-cursor="AI Architect">AI & Data Product Architecture</h2>
+                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto md:mx-0 font-sans">Beyond basic API wrappers. Strategic integration of RAG pipelines, LLM alignment, and scalable Agentic workflows with robust Human-in-the-loop governance.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center reveal">
+                <!-- Architecture Diagram (HTML/CSS Based) -->
+                <div class="glass-card p-4 sm:p-8 bg-white dark:bg-[#050505] relative overflow-hidden group shadow-md dark:shadow-none" data-cursor="Architecture">
+                    <div class="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-accent-100/80 dark:bg-accent-600/20 rounded-full blur-[40px] dark:blur-[60px] transition-all"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 sm:w-32 sm:h-32 bg-ai-100/80 dark:bg-ai-600/20 rounded-full blur-[40px] dark:blur-[60px] transition-all"></div>
+                    
+                    <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 dark:text-accent-400 mb-6 border-b border-gray-100 dark:border-gray-800 pb-2 flex justify-between">
+                        <span>Enterprise RAG Architecture</span>
+                    </h4>
+                    
+                    <div class="flex flex-col items-center space-y-3 sm:space-y-4 font-mono text-[10px] sm:text-xs w-full">
+                        <div class="w-full max-w-[280px] sm:max-w-xs border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/30 p-2 sm:p-3 text-center text-gray-700 dark:text-gray-300 shadow-sm rounded">
+                            user_query = "Analyze field data"
+                        </div>
+                        <div class="text-gray-400 dark:text-gray-600 font-bold">↓</div>
+                        <div class="w-full max-w-[300px] sm:max-w-sm border border-accent-300 dark:border-accent-500/40 bg-accent-50 dark:bg-accent-500/10 p-2 sm:p-3 text-center text-accent-700 dark:text-accent-300 shadow-sm relative z-10 rounded">
+                            <span class="animate-pulse mr-1 sm:mr-2 text-accent-500">⚡</span> MCP / Agentic Router
+                        </div>
+                        <div class="flex w-full max-w-[300px] sm:max-w-sm justify-between px-4 sm:px-8 text-gray-400 dark:text-gray-600 font-bold">
+                            <div>↙</div><div>↓</div><div>↘</div>
+                        </div>
+                        <div class="flex w-full max-w-[320px] sm:max-w-md justify-between gap-1.5 sm:gap-2 relative z-10">
+                            <div class="flex-1 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/50 shadow-sm p-1.5 sm:p-2 text-center text-gray-600 dark:text-gray-400 text-[8px] sm:text-[10px] rounded font-sans">
+                                Vector DB (RAG)<br><span class="text-ai-600 dark:text-ai-400/80 font-medium">LangChain</span>
+                            </div>
+                            <div class="flex-1 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/50 shadow-sm p-1.5 sm:p-2 text-center text-gray-600 dark:text-gray-400 text-[8px] sm:text-[10px] rounded font-sans">
+                                Legacy API<br><span class="text-ai-600 dark:text-ai-400/80 font-medium">SQL/Graph</span>
+                            </div>
+                            <div class="flex-1 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/50 shadow-sm p-1.5 sm:p-2 text-center text-gray-600 dark:text-gray-400 text-[8px] sm:text-[10px] rounded font-sans">
+                                Live Data<br><span class="text-ai-600 dark:text-ai-400/80 font-medium">Function Call</span>
+                            </div>
+                        </div>
+                        <div class="flex w-full max-w-[300px] sm:max-w-sm justify-between px-4 sm:px-8 text-gray-400 dark:text-gray-600 font-bold">
+                            <div>↘</div><div>↓</div><div>↙</div>
+                        </div>
+                        <div class="w-full max-w-[300px] sm:max-w-sm border border-ai-300 dark:border-ai-500/40 bg-ai-50 dark:bg-ai-500/10 p-2 sm:p-3 text-center text-ai-700 dark:text-ai-300 relative shadow-sm z-10 rounded">
+                            LLM Generation Engine
+                            <div class="absolute -right-2 sm:-right-12 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-500 text-[7px] sm:text-[9px] text-left leading-tight bg-white dark:bg-black/80 p-1 border border-gray-200 dark:border-gray-800 shadow-sm rounded font-sans">
+                                ↺ Human<br>in Loop
+                            </div>
+                        </div>
+                        <div class="text-gray-400 dark:text-gray-600 font-bold">↓</div>
+                        <div class="w-full max-w-[280px] sm:max-w-xs border border-green-300 dark:border-green-500/30 bg-green-50 dark:bg-green-500/5 p-2 sm:p-3 text-center text-green-700 dark:text-green-400 shadow-sm relative z-10 rounded">
+                            return actionable_insight
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="space-y-6" data-cursor="Read Framework">
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Engineering Context for AI Products</h3>
+                    <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+                        Transitioning from traditional SaaS to AI-native products requires deep understanding of data pipelines, evaluation frameworks, and context engineering to build enterprise trust.
+                    </p>
+                    <div class="space-y-4 sm:space-y-5">
+                        <div class="flex gap-3 sm:gap-4 items-start">
+                            <div class="mt-0.5 sm:mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded bg-accent-100 dark:bg-accent-500/10 border border-accent-200 dark:border-accent-500/50 flex-shrink-0 flex items-center justify-center text-accent-700 dark:text-accent-400 text-[10px] sm:text-xs font-mono">01</div>
+                            <div>
+                                <h4 class="text-sm sm:text-base text-gray-900 dark:text-white font-medium">RAG & Context Engineering</h4>
+                                <p class="text-xs sm:text-sm text-gray-500 font-light mt-0.5 font-sans">Structuring unstructured enterprise data. Balancing chunk size, vector similarity, and context windows.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 sm:gap-4 items-start">
+                            <div class="mt-0.5 sm:mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded bg-ai-100 dark:bg-ai-500/10 border border-ai-200 dark:border-ai-500/50 flex-shrink-0 flex items-center justify-center text-ai-700 dark:text-ai-400 text-[10px] sm:text-xs font-mono">02</div>
+                            <div>
+                                <h4 class="text-sm sm:text-base text-gray-900 dark:text-white font-medium">Agentic AI & MCP</h4>
+                                <p class="text-xs sm:text-sm text-gray-500 font-light mt-0.5 font-sans">Designing systems where models securely utilize external tools to execute workflows, with human-in-the-loop safeguards.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 sm:gap-4 items-start">
+                            <div class="mt-0.5 sm:mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded bg-gray-200 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 flex-shrink-0 flex items-center justify-center text-gray-700 dark:text-gray-400 text-[10px] sm:text-xs font-mono">03</div>
+                            <div>
+                                <h4 class="text-sm sm:text-base text-gray-900 dark:text-white font-medium">Prompt Evaluation</h4>
+                                <p class="text-xs sm:text-sm text-gray-500 font-light mt-0.5 font-sans">Moving beyond qualitative testing to rigorous quantitative frameworks ensuring deterministic behavior from probabilistic models.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
+    <!-- Career Timeline & Toolkit -->
+    <section id="experience" class="py-16 md:py-24 relative border-t border-gray-100 dark:border-white/5 bg-white dark:bg-[#050505] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+            <!-- Timeline -->
+            <div class="lg:col-span-2 reveal">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-8 md:mb-10 text-gray-900 dark:text-white" data-cursor="Career History">Product Journey</h2>
+                <div class="relative border-l border-gray-200 dark:border-gray-800 ml-2 sm:ml-3 space-y-10 sm:space-y-12 pb-4">
+                    <!-- UPPCL -->
+                    <div class="relative pl-6 sm:pl-8" data-cursor="GovTech">
+                        <div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-accent-500 shadow-[0_0_0_4px_rgba(255,255,255,1)] dark:shadow-[0_0_10px_rgba(14,165,233,0.8)]"></div>
+                        <div class="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
+                            <img src="uppcl logo.jpg" alt="UPPCL Logo" class="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-white object-contain border border-gray-200 dark:border-gray-700 p-1 sm:p-1.5 shadow-sm" onerror="this.style.display='none'">
+                            <div class="text-[10px] sm:text-xs text-accent-600 dark:text-accent-400 font-mono font-medium">2024 - Present</div>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Product Consultant</h3>
+                        <div class="text-gray-600 dark:text-gray-400 font-medium mb-2 sm:mb-3 text-xs sm:text-sm">Uttar Pradesh Power Corporation Limited</div>
+                        <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-light font-sans">Directing data-driven electricity theft detection products. Managed high-stakes functional deployments to 8K+ active users and successfully secured ₹415 Cr in critical state development capital through rapid prototyping validation.</p>
+                    </div>
 
-    <footer class="border-t border-slate-900 bg-[#070a12] py-8 text-center text-xs text-slate-600 relative z-20">
-        <p>&copy; 2026 Product Consultant Portfolio. Built for high-growth deployment.</p>
-    </footer>
+                    <!-- Talview -->
+                    <div class="relative pl-6 sm:pl-8" data-cursor="HRTech">
+                        <div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-gray-400 dark:bg-gray-600 shadow-[0_0_0_4px_rgba(255,255,255,1)] dark:shadow-none"></div>
+                        <div class="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
+                            <img src="Talview_logo___2000x2000_Logo.jpg" alt="Talview Logo" class="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-white object-contain border border-gray-200 dark:border-gray-700 p-1 sm:p-1.5 shadow-sm" onerror="this.style.display='none'">
+                            <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 font-mono font-medium">2022 - 2023</div>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Product Manager</h3>
+                        <div class="text-gray-600 dark:text-gray-400 font-medium mb-2 sm:mb-3 text-xs sm:text-sm">Talview (HRTech SaaS)</div>
+                        <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-light font-sans">Owned core candidate assessment UX pipelines for global enterprise SaaS clients. Lifted NPS by +29 points, compressed TTFV (Time-To-First-Value) by 40%, achieved global WCAG 2.1 AA accessibility compliance, and served 100K+ concurrent users across major enterprise accounts like Cisco and Nvidia.</p>
+                    </div>
 
+                    <!-- Magnus IT -->
+                    <div class="relative pl-6 sm:pl-8" data-cursor="GovTech">
+                        <div class="absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full bg-gray-400 dark:bg-gray-600 shadow-[0_0_0_4px_rgba(255,255,255,1)] dark:shadow-none"></div>
+                        <div class="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-3">
+                            <img src="magnus_it_solutions_logo.jpg" alt="Magnus IT Logo" class="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-white object-contain border border-gray-200 dark:border-gray-700 p-1 sm:p-1.5 shadow-sm" onerror="this.style.display='none'">
+                            <div class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 font-mono font-medium">2018 - 2022</div>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Product Manager</h3>
+                        <div class="text-gray-600 dark:text-gray-400 font-medium mb-2 sm:mb-3 text-xs sm:text-sm">Magnus IT Solutions</div>
+                        <p class="text-xs sm:text-sm text-gray-500 leading-relaxed font-light font-sans">Rescued a struggling state-wide Digital File Management System across 14+ public sector clients. Tripled baseline Customer Retention Rate (from 15% to 45%) and secured key L1 technical tender eligibility metrics to construct a robust business moat.</p>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="mt-10 md:mt-12 border-t border-gray-200 dark:border-gray-800 pt-8 md:pt-10" data-cursor="Education">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 md:mb-8 text-center md:text-left">Education</h3>
+                    <div class="flex flex-col-reverse md:flex-row gap-8 md:gap-12 items-center justify-between">
+                        <div class="grid grid-cols-1 gap-4 sm:gap-5 w-full flex-1 max-w-2xl">
+                            <div class="glass-card p-4 sm:p-5 border-l-4 border-l-gray-300 dark:border-l-gray-700">
+                                <div class="text-[10px] sm:text-xs text-accent-600 dark:text-accent-400 font-mono mb-1 font-medium">2019 - 2021</div>
+                                <div class="font-bold text-gray-800 dark:text-gray-200 text-base sm:text-lg">MBA (Business Management)</div>
+                                <div class="text-xs sm:text-sm text-gray-500 font-light mt-1">NMIMS, Mumbai</div>
+                            </div>
+                            <div class="glass-card p-4 sm:p-5 border-l-4 border-l-gray-300 dark:border-l-gray-700">
+                                <div class="text-[10px] sm:text-xs text-gray-500 font-mono mb-1 font-medium">2010 - 2014</div>
+                                <div class="font-bold text-gray-800 dark:text-gray-200 text-base sm:text-lg">Bachelor of Engineering (Civil)</div>
+                                <div class="text-xs sm:text-sm text-gray-500 font-light mt-1">Ramaiah Institute of Technology</div>
+                            </div>
+                        </div>
+                        <img src="WhatsApp Image 2026-05-26 at 14.45.43.jpeg" alt="Nripendu Event" class="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 object-cover rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 dark:filter dark:grayscale-[10%] dark:hover:grayscale-0 transition-all flex-shrink-0" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toolkit -->
+            <div class="reveal mt-12 lg:mt-0" data-cursor="Tech Stack">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-8 md:mb-10 text-gray-900 dark:text-white text-center lg:text-left">Product Toolkit</h2>
+                <div class="space-y-4 sm:space-y-6">
+                    <div class="glass-card p-4 sm:p-5">
+                        <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-3 uppercase border-b border-gray-100 dark:border-gray-800 pb-2">AI / ML</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-ai-50 dark:bg-ai-500/10 border border-ai-200 dark:border-ai-500/30 text-ai-700 dark:text-ai-300 font-sans">RAG Pipeline</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-ai-50 dark:bg-ai-500/10 border border-ai-200 dark:border-ai-500/30 text-ai-700 dark:text-ai-300 font-sans">MCP</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-ai-50 dark:bg-ai-500/10 border border-ai-200 dark:border-ai-500/30 text-ai-700 dark:text-ai-300 font-sans">LangChain</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-ai-50 dark:bg-ai-500/10 border border-ai-200 dark:border-ai-500/30 text-ai-700 dark:text-ai-300 font-sans">Agentic AI</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-ai-50 dark:bg-ai-500/10 border border-ai-200 dark:border-ai-500/30 text-ai-700 dark:text-ai-300 font-sans">Prompt Eng.</span>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 sm:p-5">
+                        <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-3 uppercase border-b border-gray-100 dark:border-gray-800 pb-2">Product Strategy</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-sans">Roadmapping</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-sans">PRDs</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-sans">A/B Testing</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-sans">OKRs</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-sans">GTM Strategy</span>
+                        </div>
+                    </div>
+                    <div class="glass-card p-4 sm:p-5">
+                        <h4 class="text-[10px] sm:text-xs font-mono text-gray-500 mb-3 uppercase border-b border-gray-100 dark:border-gray-800 pb-2">Design & Tools</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-sans">Figma</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-sans">Lovable</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-sans">Bolt</span>
+                            <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-sans">Miro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical & AI Systems Architecture Section -->
+    <section id="ai-products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+        <div class="bg-gradient-to-r from-gray-900 to-gray-800 border border-gray-800 rounded-2xl p-8 shadow-xl">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                <div class="max-w-2xl">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="px-2.5 py-0.5 rounded bg-blue-500/10 text-blue-400 text-xs font-semibold border border-blue-500/20">GitHub Live</span>
+                        <span class="text-sm text-gray-400 font-mono">n8n Engine & Agent Workflows</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Echo-Loop Insight Engine</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        An automated LLM pipeline parsing unstructured customer communications to identify and stop revenue drops. Built to analyze B2B lead leakage parameters and execute autonomous travel curation logic patterns using multi-agent routing.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2.5 py-1 rounded-md bg-gray-700 text-xs text-slate-300 font-mono">Agentic RAG</span>
+                        <span class="px-2.5 py-1 rounded-md bg-gray-700 text-xs text-slate-300 font-mono">n8n Automation</span>
+                        <span class="px-2.5 py-1 rounded-md bg-gray-700 text-xs text-slate-300 font-mono">Intent Mapping</span>
+                    </div>
+                </div>
+                <a href="https://github.com" target="_blank" class="shrink-0 px-5 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium text-sm rounded-xl border border-gray-600 flex items-center justify-center gap-2 transition-all">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+                    View Source Repository
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact & Calendar Section -->
+    <section id="contact" class="py-16 md:py-24 relative border-t border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-[#030303] px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left Column: Messaging & Resume -->
+                <div class="space-y-6 reveal text-center lg:text-left">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white font-sans tracking-tight">Ready to build what's next?</h2>
+                    <p class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 font-light font-sans">
+                        Seeking opportunities as an <strong class="text-gray-900 dark:text-white font-semibold">AI Product Builder</strong> or <strong class="text-gray-900 dark:text-white font-semibold">Product Manager</strong> capable of navigating operational ambiguity, architecting intelligent automated workflows, and delivering quantifiable metrics across high-stakes corporate and GovTech environments.
+                    </p>
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="Base_Resume_Nripendu.docx.pdf" download="Nripendu_Sharma_Resume.pdf" class="w-full sm:w-auto px-6 py-3.5 rounded bg-gray-900 dark:bg-white text-white dark:text-black font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors shadow-md flex items-center justify-center gap-2 text-sm sm:text-base" data-cursor="Download PDF">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            Download Resume
+                        </a>
+                        <a href="mailto:nripendusharma@outlook.com" class="text-sm sm:text-base text-gray-600 dark:text-gray-400 hover:text-accent-500 font-medium font-mono" data-cursor="Email">
+                            nripendusharma@outlook.com
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Booking Redirect Panel -->
+                <div class="glass-card p-8 rounded-2xl relative shadow-xl dark:shadow-none border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#08080a] text-center reveal" data-cursor="Scheduler">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center justify-center gap-2 font-mono">
+                        <span class="flex h-2.5 w-2.5 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-500"></span>
+                        </span>
+                        <span>Interactive Booking Engine</span>
+                    </h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 font-sans">
+                        Select a date and available slot (11:00 AM - 04:00 PM) to configure a booking directly onto my dashboard pipeline.
+                    </p>
+                    
+                    <div class="p-4 bg-gray-50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-800 rounded-xl mb-6 text-left">
+                        <h4 class="text-xs font-mono font-bold text-gray-700 dark:text-gray-300 uppercase mb-2">> Synchronized Parameters Enabled</h4>
+                        <ul class="text-xs text-gray-500 dark:text-gray-400 space-y-1 list-disc list-inside font-mono">
+                            <li>Dynamic Meeting Workspace Links</li>
+                            <li>Corporate Domain Handshake</li>
+                            <li>Direct Attendance Confirmation</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://calendly.com/nripendusharma" target="_blank" class="w-full inline-flex items-center justify-center px-6 py-4 bg-accent-600 hover:bg-accent-700 text-white font-bold rounded shadow-lg shadow-accent-600/20 transition-all font-mono uppercase tracking-wide gap-2" data-cursor="Calendar Link">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 19v-6a2 2 0 012-2h14a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
+                        Send the Invitation
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-16 sm:mt-20 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-900 text-xs sm:text-sm text-gray-500 dark:text-gray-600 flex flex-col md:flex-row justify-between items-center font-mono gap-4 md:gap-0">
+                <p>&copy; 2026 Nripendu Sharma.</p>
+                <div class="flex flex-wrap justify-center space-x-2 sm:space-x-4">
+                    <a href="https://www.linkedin.com/in/nripendusharma/" target="_blank" class="hover:text-accent-600 dark:hover:text-white transition-colors">LinkedIn</a>
+                    <span class="px-1 sm:px-2">|</span>
+                    <a href="https://substack.com/@nripendusharma" target="_blank" class="hover:text-accent-600 dark:hover:text-white transition-colors">Substack</a>
+                    <span class="px-1 sm:px-2">|</span>
+                    <span>Lucknow, India / Full Time</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chat Assistant Widget -->
+    <div id="ai-chat-widget" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none">
+        <!-- Chat Window -->
+        <div id="ai-chat-window" class="pointer-events-auto bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl w-[calc(100vw-2rem)] sm:w-96 mb-3 sm:mb-4 overflow-hidden flex flex-col transition-all duration-300 transform translate-y-4 opacity-0 scale-95" style="height: 400px; display: none;">
+            <!-- Header -->
+            <div class="bg-gray-50 dark:bg-[#111] border-b border-gray-200 dark:border-gray-800 p-3 sm:p-4 flex justify-between items-center">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-accent-50 dark:bg-accent-500/20 border border-accent-200 dark:border-accent-500/50 flex items-center justify-center text-accent-600 dark:text-accent-400 text-xs overflow-hidden shadow-sm">
+                        <img src="linkedin pic 1.jpg" alt="NS" class="w-full h-full object-cover" onerror="this.style.display='none'; this.parentNode.innerHTML='NS';">
+                    </div>
+                    <div>
+                        <h3 class="text-gray-900 dark:text-white font-medium text-xs sm:text-sm font-mono">NS.AI Assistant</h3>
+                        <p class="text-green-600 dark:text-green-400 text-[9px] sm:text-[10px] flex items-center gap-1 font-mono font-bold">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Online
+                        </p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors px-2" data-cursor="Close">✕</button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="ai-chat-messages" class="flex-1 p-3 sm:p-4 overflow-y-auto space-y-3 sm:space-y-4 text-xs sm:text-sm font-light text-gray-800 dark:text-gray-200">
+                <div class="flex gap-2 sm:gap-3">
+                    <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-ai-100 dark:bg-ai-500/20 border border-ai-200 dark:border-ai-500/50 flex-shrink-0 flex items-center justify-center text-[8px] sm:text-[10px] text-ai-700 dark:text-ai-400 font-mono font-bold">AI</div>
+                    <div class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-2 sm:p-3 rounded-lg rounded-tl-none border border-gray-200 dark:border-gray-800 shadow-sm font-sans">
+                        Hi! I am Nripendu's digital twin powered by Gemini. You can ask me anything about my experience at UPPCL, Talview, or my AI capabilities. What would you like to know?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-2 sm:p-3 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-[#050505]">
+                <form id="ai-chat-form" class="flex gap-2" onsubmit="handleChatSubmit(event)">
+                    <input type="text" id="ai-chat-input" placeholder="Ask about his experience..." class="flex-1 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-800 rounded px-2 sm:px-3 py-1.5 sm:py-2 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:border-accent-500 font-light shadow-inner" autocomplete="off">
+                    <button type="submit" class="bg-gray-900 dark:bg-accent-600 hover:bg-gray-800 dark:hover:bg-accent-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded text-xs sm:text-sm transition-colors font-medium shadow-sm">Send</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Chat Toggle Button -->
+        <button onclick="toggleChat()" class="pointer-events-auto w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gray-900 dark:bg-accent-600 text-white shadow-xl dark:shadow-[0_0_20px_rgba(14,165,233,0.4)] flex items-center justify-center hover:bg-gray-800 dark:hover:bg-accent-500 hover:scale-105 transition-all z-50 border border-gray-700 dark:border-accent-400/30" id="chat-toggle-btn" data-cursor="Chat with AI">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </button>
+    </div>
+
+    <!-- Case Study Deep-Dive Modal Component -->
     <div id="caseStudyModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-2xl max-h-[85vh] overflow-y-auto p-8 relative">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-xl font-bold">&times;</button>
-            <div id="modalContent">
-                </div>
+            <div id="modalContent"></div>
         </div>
     </div>
 
+    <!-- JavaScript Logic Layer -->
     <script>
-        // Custom Cursor Logic
-        const cursor = document.getElementById('custom-cursor');
-        const glow = document.getElementById('cursor-glow');
-        
-        if (window.innerWidth > 768) {
-            window.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                glow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-            });
-
-            document.querySelectorAll('a, button, [onclick]').forEach(item => {
-                item.addEventListener('mouseenter', () => document.body.classList.add('interactive-hover'));
-                item.addEventListener('mouseleave', () => document.body.classList.remove('interactive-hover'));
-            });
-        }
-
-        // Native Listener Capturing Calendly Frame Selection Events
-        window.addEventListener('message', function(e) {
-            if (e.data.event && e.data.event.indexOf('calendly.event_scheduled') !== -1) {
-                // Instantly reveal layout level success alert banner
-                document.getElementById('booking-success-message').classList.remove('hidden');
-                // Scroll container focus smoothly to banner level views
-                document.getElementById('booking-success-message').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
-
-        // Modal Content Configuration Data Layers
         const caseStudyData = {
             govtech: {
-                title: "Govtech Enforcement Workflow Architecture",
-                strategy: "We built an optimized routing tier to validate user registration status against local government datastores asynchronously, dropping sync timeout rates.",
-                discovery: "Initial research verified that application bottlenecks occurred when processing multi-tenant verification fields during spike traffic times."
+                title: "Govtech Enforcement Workflow Architecture (UPPCL)",
+                strategy: "Architected compliance structures and regulatory workflow updates to streamline municipal monitoring and identity verifications across distributed state infrastructure frameworks.",
+                discovery: "Initial research verified that application bottlenecks occurred when processing multi-tenant verification fields during spike traffic times. Successfully targeted a ₹58 Cr ARR uplift via optimized bill recovery workflows."
             },
             candidate: {
                 title: "Talview Candidate UX Optimization Pipeline",
@@ -284,39 +1068,333 @@
                 discovery: "Telemetry drop-off audits identified that 28% of candidates abandoned the application flow due to simultaneous camera/microphone access hardware errors."
             },
             dms: {
-                title: "Enterprise Document Management System Pivot",
+                title: "Enterprise Document Management System Pivot (Magnus IT)",
                 strategy: "Migrated the legacy indexing tables to highly scalable key-value data layers to scale simultaneous file categorization routines.",
                 discovery: "Data mapping proved that standard relational locking queries were freezing read streams during high-volume enterprise document uploads."
             }
         };
 
+        let retentionChartInstance = null;
+        let adoptionChartInstance = null;
+
+        // Theme Configuration Listeners
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        function updateThemeIcons() {
+            if (document.documentElement.classList.contains('dark')) {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+            } else {
+                lightIcon.classList.add('hidden');
+                darkIcon.classList.remove('hidden');
+            }
+        }
+
+        function updateChartsTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#9ca3af' : '#4b5563'; 
+            const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+
+            if (retentionChartInstance) {
+                retentionChartInstance.options.scales.y.grid.color = gridColor;
+                retentionChartInstance.options.scales.y.ticks.color = textColor;
+                retentionChartInstance.options.scales.x.ticks.color = textColor;
+                retentionChartInstance.update();
+            }
+            if (adoptionChartInstance) {
+                adoptionChartInstance.options.plugins.legend.labels.color = textColor;
+                adoptionChartInstance.update();
+            }
+        }
+
+        updateThemeIcons();
+
+        themeToggleBtn.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+            updateThemeIcons();
+            updateChartsTheme();
+        });
+
+        // Mobile Nav Toggle Mechanics
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // High-Fidelity Custom Cursor Text Framework
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.getElementById('custom-cursor');
+            const cursorText = document.getElementById('cursor-text');
+            
+            if (cursor && cursorText && window.matchMedia("(pointer: fine)").matches) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+
+                document.querySelectorAll('[data-cursor]').forEach(item => {
+                    item.addEventListener('mouseenter', () => {
+                        cursor.classList.add('hovering');
+                        cursorText.innerText = item.getAttribute('data-cursor');
+                    });
+                    item.addEventListener('mouseleave', () => {
+                        cursor.classList.remove('hovering');
+                        cursorText.innerText = '';
+                    });
+                });
+            }
+            
+            initCharts();
+        });
+
+        // Tab Navigation Logic
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden'); el.classList.remove('block');
+            });
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.className = "tab-btn px-4 sm:px-6 py-2.5 sm:py-3 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5 font-mono text-xs sm:text-sm whitespace-nowrap transition-all cursor-none";
+            });
+            
+            const currentTab = document.getElementById(tabId);
+            if (currentTab) {
+                currentTab.classList.remove('hidden');
+                currentTab.classList.add('block');
+            }
+            if (btn) {
+                btn.className = "tab-btn px-4 sm:px-6 py-2.5 sm:py-3 bg-accent-50 dark:bg-accent-500/10 text-accent-700 dark:text-accent-400 border-b-2 border-accent-500 font-mono text-xs sm:text-sm whitespace-nowrap transition-all cursor-none";
+            }
+        }
+
+        // Deep-Dive Modal Logic
         function openModal(key) {
             const data = caseStudyData[key];
             if (!data) return;
 
             document.getElementById('modalContent').innerHTML = `
-                <h3 class="text-2xl font-bold text-white mb-6">${data.title}</h3>
-                <div class="space-y-6">
+                <h3 class="text-xl sm:text-2xl font-bold text-white mb-6 font-mono">${data.title}</h3>
+                <div class="space-y-6 font-sans">
                     <div>
-                        <h4 class="text-xs font-semibold uppercase tracking-wider text-teal-400 mb-2">Discovery Context</h4>
+                        <h4 class="text-xs font-mono font-semibold uppercase tracking-wider text-teal-400 mb-2">> Discovery Context</h4>
                         <p class="text-slate-300 text-sm leading-relaxed">${data.discovery}</p>
                     </div>
-                    <div class="border-t border-slate-800/80 pt-4">
-                        <h4 class="text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">Product & Technical Strategy</h4>
+                    <div class="border-t border-slate-800 pt-4">
+                        <h4 class="text-xs font-mono font-semibold uppercase tracking-wider text-accent-400 mb-2">> Product Strategy & Architecture</h4>
                         <p class="text-slate-300 text-sm leading-relaxed">${data.strategy}</p>
                     </div>
                 </div>
             `;
             document.getElementById('caseStudyModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('caseStudyModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
         });
+
+        // Chart.js Configuration Matrix
+        function initCharts() {
+            Chart.defaults.font.family = "'JetBrains Mono', monospace";
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#9ca3af' : '#4b5563';
+            const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+            const chartFontSize = window.innerWidth < 640 ? 10 : 12;
+            Chart.defaults.font.size = chartFontSize;
+            
+            const canvasRetention = document.getElementById('retentionChart');
+            if (canvasRetention) {
+                if (retentionChartInstance) retentionChartInstance.destroy();
+                retentionChartInstance = new Chart(canvasRetention.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Yr1 (Pre)', 'Yr2 (Pivot)', 'Yr3 (Opt)', 'Yr4 (L1)'],
+                        datasets: [{
+                            data: [15, 22, 35, 45],
+                            backgroundColor: 'rgba(14, 165, 233, 0.7)',
+                            borderColor: 'rgba(2, 132, 199, 1)',
+                            borderWidth: 1, borderRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 50, grid: { color: gridColor }, ticks: { color: textColor } },
+                            x: { grid: { display: false }, ticks: { color: textColor } }
+                        }
+                    }
+                });
+            }
+
+            const canvasAdoption = document.getElementById('adoptionChart');
+            if (canvasAdoption) {
+                if (adoptionChartInstance) adoptionChartInstance.destroy();
+                adoptionChartInstance = new Chart(canvasAdoption.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Active Officers', 'Remaining Target'],
+                        datasets: [{
+                            data: [8000, 2000],
+                            backgroundColor: ['rgba(139, 92, 246, 0.8)', 'rgba(156, 163, 175, 0.2)'],
+                            borderColor: ['rgba(124, 58, 237, 1)', 'rgba(156, 163, 175, 0.3)'],
+                            borderWidth: 1, cutout: '75%'
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { color: textColor, padding: 15 } } }
+                    },
+                    plugins: [{
+                        id: 'textCenter',
+                        beforeDraw: function(chart) {
+                            var width = chart.width, height = chart.height, ctx = chart.ctx;
+                            ctx.restore();
+                            var fontSize = (height / 120).toFixed(2);
+                            ctx.font = "bold " + fontSize + "em 'JetBrains Mono'";
+                            ctx.textBaseline = "middle"; 
+                            ctx.fillStyle = document.documentElement.classList.contains('dark') ? "#ffffff" : "#111827"; 
+                            var text = "8K+", textX = Math.round((width - ctx.measureText(text).width) / 2), textY = height / 2 - 12;
+                            ctx.fillText(text, textX, textY);
+                            ctx.save();
+                        }
+                    }]
+                });
+            }
+        }
+
+        window.addEventListener('resize', initCharts);
+
+        // AI Chat Widget Mechanics
+        let isChatOpen = false;
+        const apiKey = ""; 
+
+        function toggleChat() {
+            const windowEl = document.getElementById('ai-chat-window');
+            const toggleBtn = document.getElementById('chat-toggle-btn');
+            if (!windowEl || !toggleBtn) return;
+            
+            isChatOpen = !isChatOpen;
+            if (isChatOpen) {
+                windowEl.style.display = 'flex';
+                void windowEl.offsetWidth; 
+                windowEl.classList.remove('translate-y-4', 'opacity-0', 'scale-95');
+                toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+            } else {
+                windowEl.classList.add('translate-y-4', 'opacity-0', 'scale-95');
+                setTimeout(() => { windowEl.style.display = 'none'; }, 300);
+                toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
+            }
+        }
+
+        function appendMessage(role, text) {
+            const msgArea = document.getElementById('ai-chat-messages');
+            if (!msgArea) return;
+            const isUser = role === 'user';
+            
+            const userStyles = document.documentElement.classList.contains('dark') ? 'bg-gray-800 text-white border border-gray-700' : 'bg-gray-900 text-white shadow-sm';
+            const aiStyles = document.documentElement.classList.contains('dark') ? 'bg-gray-900 text-gray-200 border border-gray-800' : 'bg-gray-100 text-gray-800 border border-gray-200 shadow-sm';
+            const avatarStyles = isUser ? (document.documentElement.classList.contains('dark') ? 'bg-gray-700' : 'bg-gray-900') : (document.documentElement.classList.contains('dark') ? 'bg-ai-500/20 border border-ai-500/50 text-ai-400' : 'bg-ai-100 border border-ai-200 text-ai-700');
+
+            const msgHTML = `
+                <div class="flex gap-2 sm:gap-3 ${isUser ? 'flex-row-reverse' : ''}">
+                    <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full ${avatarStyles} font-mono font-bold text-[8px] sm:text-[10px] flex-shrink-0 flex items-center justify-center text-white shadow-sm">
+                        ${isUser ? 'U' : 'AI'}
+                    </div>
+                    <div class="${isUser ? userStyles + ' rounded-tr-none' : aiStyles + ' rounded-tl-none'} p-2 sm:p-3 rounded-lg text-xs sm:text-sm">
+                        ${text}
+                    </div>
+                </div>`;
+            
+            msgArea.insertAdjacentHTML('beforeend', msgHTML);
+            msgArea.scrollTop = msgArea.scrollHeight;
+        }
+
+        async function handleChatSubmit(e) {
+            e.preventDefault();
+            const inputEl = document.getElementById('ai-chat-input');
+            if (!inputEl) return;
+            const query = inputEl.value.trim();
+            if (!query) return;
+
+            appendMessage('user', query);
+            inputEl.value = '';
+            inputEl.disabled = true;
+            
+            const msgArea = document.getElementById('ai-chat-messages');
+            const loadingId = 'loading-' + Date.now();
+            if (msgArea) {
+                msgArea.insertAdjacentHTML('beforeend', `<div id="${loadingId}" class="text-[10px] sm:text-xs text-gray-400 ml-8 sm:ml-9 font-mono">Thinking...</div>`);
+                msgArea.scrollTop = msgArea.scrollHeight;
+            }
+
+            const systemPrompt = `You are a digital twin AI assistant for Nripendu Sharma, an AI Product Builder and Senior Product Manager. Your job is to answer questions based strictly on his resume:
+            - Product Consultant at UPPCL: drove ₹58 Cr+ ARR uplift, shipped MVP to 8K+ field officers, unlocked ₹415 Cr funding via prototyping.
+            - PM at Talview (2022-2023): Lifted NPS by +29, cut time-to-value by 40%, served 100K+ candidates globally.
+            - PM at Magnus IT Solutions (2018-2022): turned around DMS system, increasing CRR from 15% to 45%.
+            - Education: MBA from NMIMS, BE (Civil) from Ramaiah Institute.
+            Be concise, professional, confident, and highlight metrics. Keep responses to 2-3 sentences max.`;
+
+            if (!apiKey) {
+                setTimeout(() => {
+                    const loadingEl = document.getElementById(loadingId);
+                    if (loadingEl) loadingEl.remove();
+                    appendMessage('ai', "I am currently running in demo mode. Nripendu drove ₹58 Cr+ in ARR scaling operational GovTech dashboards, cut Candidate Time-To-Value by 40% at Talview, and is available for Group/Senior PM roles. Let's arrange a call!");
+                    inputEl.disabled = false;
+                }, 800);
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: query }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const loadingEl = document.getElementById(loadingId);
+                if (loadingEl) loadingEl.remove();
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Thank you for reaching out! Please connect with Nripendu directly on LinkedIn for immediate details.";
+                    appendMessage('ai', aiText);
+                } else {
+                    appendMessage('ai', "I experienced a temporary communication hiccup. Please reach Nripendu directly via nripendusharma@outlook.com.");
+                }
+            } catch (error) {
+                const loadingEl = document.getElementById(loadingId);
+                if (loadingEl) loadingEl.remove();
+                appendMessage('ai', "Connection failed. Please feel free to reach out via LinkedIn.");
+            } finally {
+                inputEl.disabled = false;
+                inputEl.focus();
+            }
+        }
     </script>
 </body>
 </html>
