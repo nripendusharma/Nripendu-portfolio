@@ -1249,7 +1249,7 @@
                         </span>
                         <span>Interactive Booking Engine</span>
                     </h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-6 font-sans font-sans">Select a date and available slot (11:00 AM - 04:00 PM) to configure a booking directly on my Outlook.</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-6 font-sans font-sans">Select a date and available slot (11:00 AM - 04:00 PM) to configure a booking directly on Calendly.</p>
                     
                     <div id="scheduler-container" class="space-y-6">
                         <!-- Calendar Widget -->
@@ -1289,10 +1289,10 @@
                                 </div>
                                 <textarea id="booker-purpose" placeholder="Discussing Senior/Group PM opportunities..." rows="2" class="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded p-2 text-xs text-gray-900 dark:text-white focus:outline-none focus:border-accent-500 font-sans shadow-inner resize-none animate-pulse" required></textarea>
                                 
-                                <button onclick="triggerBookingMail()" class="w-full py-2.5 bg-accent-600 hover:bg-accent-500 text-white rounded text-xs font-bold shadow transition-colors font-mono uppercase tracking-wide flex items-center justify-center gap-1.5">
+                                <a href="https://calendly.com/nripendusharma" target="_blank" class="w-full py-2.5 bg-accent-600 hover:bg-accent-500 text-white rounded text-xs font-bold shadow transition-colors font-mono uppercase tracking-wide flex items-center justify-center gap-1.5">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 19v-6a2 2 0 012-2h14a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
-                                    Confirm Call on Outlook
-                                </button>
+                                    Confirm Call on Calendly
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -1361,28 +1361,28 @@
     <!-- Javascript Logic -->
     <script>
         // Store chart instances globally for theme updating
-        let retentionChartInstance = null;
-        let adoptionChartInstance = null;
+        var retentionChartInstance = null;
+        var adoptionChartInstance = null;
 
         // Theme Toggle Logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const darkIcon = document.getElementById('theme-toggle-dark-icon');
-        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        var themeToggleBtn = document.getElementById('theme-toggle');
+        var darkIcon = document.getElementById('theme-toggle-dark-icon');
+        var lightIcon = document.getElementById('theme-toggle-light-icon');
 
         function updateThemeIcons() {
             if (document.documentElement.classList.contains('dark')) {
-                darkIcon.classList.add('hidden');
-                lightIcon.classList.remove('hidden');
+                if (darkIcon) darkIcon.classList.add('hidden');
+                if (lightIcon) lightIcon.classList.remove('hidden');
             } else {
-                lightIcon.classList.add('hidden');
-                darkIcon.classList.remove('hidden');
+                if (lightIcon) lightIcon.classList.add('hidden');
+                if (darkIcon) darkIcon.classList.remove('hidden');
             }
         }
 
         function updateChartsTheme() {
-            const isDark = document.documentElement.classList.contains('dark');
-            const textColor = isDark ? '#9ca3af' : '#4b5563'; 
-            const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+            var isDark = document.documentElement.classList.contains('dark');
+            var textColor = isDark ? '#9ca3af' : '#4b5563'; 
+            var gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
 
             if (retentionChartInstance && typeof retentionChartInstance.destroy === 'function') {
                 retentionChartInstance.options.scales.y.grid.color = gridColor;
@@ -1396,50 +1396,54 @@
 
         updateThemeIcons();
 
-        themeToggleBtn.addEventListener('click', function() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            }
-            updateThemeIcons();
-            updateChartsTheme();
-        });
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+                updateThemeIcons();
+                updateChartsTheme();
+            });
+        }
 
         // Mobile Menu Toggle Logic
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+        var mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        var mobileMenu = document.getElementById('mobile-menu');
+        var mobileLinks = document.querySelectorAll('.mobile-link');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
+        mobileLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (mobileMenu) mobileMenu.classList.add('hidden');
             });
         });
 
         // Custom Cursor Logic - Fully restored and stabilized
-        document.addEventListener('DOMContentLoaded', () => {
-            const cursor = document.getElementById('custom-cursor');
-            const cursorText = document.getElementById('cursor-text');
+        document.addEventListener('DOMContentLoaded', function() {
+            var cursor = document.getElementById('custom-cursor');
+            var cursorText = document.getElementById('cursor-text');
             
             if (cursor && cursorText && window.matchMedia("(pointer: fine)").matches) {
-                document.addEventListener('mousemove', (e) => {
+                document.addEventListener('mousemove', function(e) {
                     cursor.style.left = e.clientX + 'px';
                     cursor.style.top = e.clientY + 'px';
                 });
 
-                document.querySelectorAll('[data-cursor]').forEach(item => {
-                    item.addEventListener('mouseenter', () => {
+                document.querySelectorAll('[data-cursor]').forEach(function(item) {
+                    item.addEventListener('mouseenter', function() {
                         cursor.classList.add('hovering');
                         cursorText.innerText = item.getAttribute('data-cursor');
                     });
-                    item.addEventListener('mouseleave', () => {
+                    item.addEventListener('mouseleave', function() {
                         cursor.classList.remove('hovering');
                         cursorText.innerText = '';
                     });
@@ -1448,30 +1452,30 @@
         });
 
         // Scroll Reveal Animation Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const reveals = document.querySelectorAll('.reveal');
-            const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
+        document.addEventListener('DOMContentLoaded', function() {
+            var reveals = document.querySelectorAll('.reveal');
+            var revealOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
             
-            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(entry => {
+            var revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
                     if (!entry.isIntersecting) return;
                     entry.target.classList.add('active');
                 });
             }, revealOptions);
             
-            reveals.forEach(reveal => revealOnScroll.observe(reveal));
+            reveals.forEach(function(reveal) { revealOnScroll.observe(reveal); });
 
             // Navbar background logic
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
+            var navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
                 if (window.scrollY > 50) {
-                    navbar.style.boxShadow = document.documentElement.classList.contains('dark') ? 'none' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)';
-                    if(!document.documentElement.classList.contains('dark')) {
+                    if (navbar) navbar.style.boxShadow = document.documentElement.classList.contains('dark') ? 'none' : '0 4px 6px -1px rgba(0, 0, 0, 0.05)';
+                    if(navbar && !document.documentElement.classList.contains('dark')) {
                         navbar.style.background = 'rgba(255, 255, 255, 0.95)';
                     }
                 } else {
-                    navbar.style.boxShadow = 'none';
-                    if(!document.documentElement.classList.contains('dark')) {
+                    if (navbar) navbar.style.boxShadow = 'none';
+                    if(navbar && !document.documentElement.classList.contains('dark')) {
                         navbar.style.background = 'rgba(255, 255, 255, 0.85)';
                     }
                 }
@@ -1486,15 +1490,15 @@
 
         // Tab Navigation Logic for Case Studies
         function switchTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(el => {
+            document.querySelectorAll('.tab-content').forEach(function(el) {
                 el.classList.add('hidden'); el.classList.remove('block');
             });
-            document.querySelectorAll('.tab-btn').forEach(el => {
+            document.querySelectorAll('.tab-btn').forEach(function(el) {
                 el.classList.remove('text-accent-700', 'dark:text-accent-400', 'border-b-2', 'border-accent-500', 'bg-accent-50', 'dark:bg-accent-500/10');
                 el.classList.add('text-gray-500', 'dark:text-gray-500', 'hover:text-gray-900', 'dark:hover:text-gray-300', 'hover:bg-gray-50', 'dark:hover:bg-white/5');
             });
             
-            const currentTab = document.getElementById(tabId);
+            var currentTab = document.getElementById(tabId);
             if (currentTab) {
                 currentTab.classList.remove('hidden');
                 currentTab.classList.add('block');
@@ -1508,13 +1512,13 @@
 
         // Modal Logic
         function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const content = document.getElementById(modalId + '-content');
+            var modal = document.getElementById(modalId);
+            var content = document.getElementById(modalId + '-content');
             if (modal && content) {
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
                 // Small delay to allow CSS transitions to trigger smoothly
-                setTimeout(() => {
+                setTimeout(function() {
                     modal.classList.remove('opacity-0');
                     content.classList.remove('scale-95');
                 }, 10);
@@ -1523,12 +1527,12 @@
         }
 
         function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            const content = document.getElementById(modalId + '-content');
+            var modal = document.getElementById(modalId);
+            var content = document.getElementById(modalId + '-content');
             if (modal && content) {
                 modal.classList.add('opacity-0');
                 content.classList.add('scale-95');
-                setTimeout(() => {
+                setTimeout(function() {
                     modal.classList.add('hidden');
                     modal.classList.remove('flex');
                     document.body.style.overflow = 'auto'; // Restore background scrolling
@@ -1537,12 +1541,12 @@
         }
 
         // --- Custom Scheduler & Calendar Widget Logic ---
-        let currentYear = 2026;
-        let currentMonth = 5; // June (0-based Indexing, so 5 is June)
-        let selectedDateStr = "";
-        let selectedTimeSlot = "";
+        var currentYear = 2026;
+        var currentMonth = 5; // June (0-based Indexing, so 5 is June)
+        var selectedDateStr = "";
+        var selectedTimeSlot = "";
 
-        const monthNames = [
+        var monthNames = [
             "January", "February", "March", "April", "May", "June", 
             "July", "August", "September", "October", "November", "December"
         ];
@@ -1552,35 +1556,35 @@
         }
 
         function renderCalendar() {
-            const monthYearText = document.getElementById('calendar-month-year');
-            const grid = document.getElementById('calendar-grid');
+            var monthYearText = document.getElementById('calendar-month-year');
+            var grid = document.getElementById('calendar-grid');
             if (!monthYearText || !grid) return;
 
-            monthYearText.innerText = `${monthNames[currentMonth]} ${currentYear}`;
+            monthYearText.innerText = monthNames[currentMonth] + ' ' + currentYear;
             grid.innerHTML = "";
 
             // Day of week of the first day of month
-            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            var firstDay = new Date(currentYear, currentMonth, 1).getDay();
             // Days in current month
-            const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+            var totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
 
             // Fill blank days of previous month
-            for (let i = 0; i < firstDay; i++) {
-                grid.insertAdjacentHTML('beforeend', `<div class="p-2"></div>`);
+            for (var i = 0; i < firstDay; i++) {
+                grid.insertAdjacentHTML('beforeend', '<div class="p-2"></div>');
             }
 
             // Fill current month days
-            const today = new Date();
-            for (let day = 1; day <= totalDays; day++) {
-                const thisDate = new Date(currentYear, currentMonth, day);
-                const dayOfWeek = thisDate.getDay();
-                const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6); // Sun or Sat
+            var today = new Date();
+            for (var day = 1; day <= totalDays; day++) {
+                var thisDate = new Date(currentYear, currentMonth, day);
+                var dayOfWeek = thisDate.getDay();
+                var isWeekend = (dayOfWeek === 0 || dayOfWeek === 6); // Sun or Sat
                 
                 // Block past dates (for demo stability in 2026, we allow future and present days of 2026 onwards)
-                const isPast = thisDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
-                const isClickable = !isWeekend && !isPast;
+                var isPast = thisDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                var isClickable = !isWeekend && !isPast;
 
-                let dayClass = "p-2 rounded text-center font-medium transition-all relative ";
+                var dayClass = "p-2 rounded text-center font-medium transition-all relative ";
                 if (isClickable) {
                     dayClass += "text-gray-800 dark:text-gray-200 hover:bg-accent-100 dark:hover:bg-accent-500/20 hover:text-accent-600 dark:hover:text-accent-400 font-semibold cursor-none ";
                 } else if (isWeekend) {
@@ -1590,37 +1594,37 @@
                 }
 
                 // Selected styling
-                const formattedCompare = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                var formattedCompare = currentYear + '-' + String(currentMonth + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
                 if (selectedDateStr === formattedToDateString(currentYear, currentMonth, day)) {
                     dayClass = "bg-accent-600 text-white font-bold rounded-lg shadow-sm";
                 }
 
-                const dayHTML = isWeekend || isPastDate(currentMonth, day) ? 
-                    `<button type="button" disabled class="${dayClass} opacity-40">${day}</button>` :
-                    `<button type="button" onclick="selectDate(${currentYear}, ${currentMonth}, ${day}, this)" class="${dayClass}" data-cursor="Select Date" data-date-str="${formattedCompare}">${day}</button>`;
+                var dayHTML = isWeekend || isPastDate(currentMonth, day) ? 
+                    '<button type="button" disabled class="' + dayClass + ' opacity-40">' + day + '</button>' :
+                    '<button type="button" onclick="selectDate(' + currentYear + ', ' + currentMonth + ', ' + day + ', this)" class="' + dayClass + '" data-cursor="Select Date" data-date-str="' + formattedCompare + '">' + day + '</button>';
                 
                 grid.insertAdjacentHTML('beforeend', dayHTML);
             }
         }
 
-        let selectedDateStrCompare = "";
+        var selectedDateStrCompare = "";
         function isPastDate(monthIdx, dayNum) {
-            const currentObj = new Date(currentYear, monthIdx, dayNum);
-            const todayObj = new Date();
+            var currentObj = new Date(currentYear, monthIdx, dayNum);
+            var todayObj = new Date();
             todayObj.setHours(0,0,0,0);
             return currentObj < todayObj;
         }
 
         function formattedToDateString(year, month, day) {
-            return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            return year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
         }
 
-        let selectedDateStrFormatted = "";
+        var selectedDateStrFormatted = "";
 
         function selectDate(year, month, day, element) {
             // Remove selection border/bg from all active days
-            document.querySelectorAll('#calendar-grid button').forEach(btn => {
-                const dateStr = btn.getAttribute('data-date-str');
+            document.querySelectorAll('#calendar-grid button').forEach(function(btn) {
+                var dateStr = btn.getAttribute('data-date-str');
                 if (dateStr) {
                     btn.className = "p-2 rounded text-center font-semibold text-gray-800 dark:text-gray-200 hover:bg-accent-100 dark:hover:bg-accent-500/20 hover:text-accent-600 dark:hover:text-accent-400 transition-all cursor-none";
                 }
@@ -1630,41 +1634,41 @@
             element.className = "p-2 text-center font-bold rounded bg-accent-500 text-white shadow-md relative animate-pulse cursor-none";
             
             selectedDateStr = formattedToDateString(year, month, day);
-            const dateObj = new Date(year, month, day);
+            var dateObj = new Date(year, month, day);
             selectedDateStrFormatted = dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 
             // Generate time slots strictly between 11:00 AM and 04:00 PM
-            const slots = ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM"];
-            const slotsGrid = document.getElementById('time-slots-grid');
-            const slotsContainer = document.getElementById('time-slots-container');
+            var slots = ["11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM", "03:30 PM", "04:00 PM"];
+            var slotsGrid = document.getElementById('time-slots-grid');
+            var slotsContainer = document.getElementById('time-slots-container');
             
             if (slotsGrid && slotsContainer) {
                 slotsGrid.innerHTML = "";
-                slots.forEach(slot => {
-                    const slotHTML = `<button type="button" onclick="selectTimeSlot('${slot}', this)" class="slot-btn py-2 text-xs font-mono font-medium rounded border border-gray-200 dark:border-gray-800 text-gray-800 dark:text-gray-200 hover:bg-accent-50 dark:hover:bg-accent-500/10 hover:text-accent-600 dark:hover:text-accent-400 hover:border-accent-500 transition-all text-center cursor-none bg-white dark:bg-[#0d0d0f]" data-cursor="Pick Slot">${slot}</button>`;
+                slots.forEach(function(slot) {
+                    var slotHTML = '<button type="button" onclick="selectTimeSlot(\'' + slot + '\', this)" class="slot-btn py-2 text-xs font-mono font-medium rounded border border-gray-200 dark:border-gray-800 text-gray-800 dark:text-gray-200 hover:bg-accent-50 dark:hover:bg-accent-500/10 hover:text-accent-600 dark:hover:text-accent-400 hover:border-accent-500 transition-all text-center cursor-none bg-white dark:bg-[#0d0d0f]" data-cursor="Pick Slot">' + slot + '</button>';
                     slotsGrid.insertAdjacentHTML('beforeend', slotHTML);
                 });
                 slotsContainer.classList.remove('hidden');
                 
                 // Smooth scroll to time slot
-                setTimeout(() => {
+                setTimeout(function() {
                     slotsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             }
         }
 
         function selectTimeSlot(slot, element) {
-            document.querySelectorAll('.slot-btn').forEach(btn => {
+            document.querySelectorAll('.slot-btn').forEach(function(btn) {
                 btn.className = "slot-btn py-2 text-xs font-mono font-medium rounded border border-gray-200 dark:border-gray-800 text-gray-800 dark:text-gray-200 hover:bg-accent-50 dark:hover:bg-accent-500/10 hover:text-accent-600 dark:hover:text-accent-400 hover:border-accent-500 transition-all text-center cursor-none bg-white dark:bg-[#0d0d0f]";
             });
 
             element.className = "slot-btn py-2 text-xs font-mono font-bold rounded bg-accent-500 text-white shadow-md text-center transition-all cursor-none";
             selectedTimeSlot = slot;
 
-            const formContainer = document.getElementById('booking-form-container');
+            var formContainer = document.getElementById('booking-form-container');
             if (formContainer) {
                 formContainer.classList.remove('hidden');
-                setTimeout(() => {
+                setTimeout(function() {
                     formContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             }
@@ -1694,56 +1698,52 @@
             selectedDateStr = "";
             selectedDateStrFormatted = "";
             selectedTimeSlot = "";
-            const slotsContainer = document.getElementById('time-slots-container');
-            const formContainer = document.getElementById('booking-form-container');
+            var slotsContainer = document.getElementById('time-slots-container');
+            var formContainer = document.getElementById('booking-form-container');
             if (slotsContainer) slotsContainer.classList.add('hidden');
             if (formContainer) formContainer.classList.add('hidden');
         }
 
         function triggerBookingMail() {
-            const name = document.getElementById('booker-name').value.trim();
-            const org = document.getElementById('booker-org').value.trim();
-            const purpose = document.getElementById('booker-purpose').value.trim();
+            var name = document.getElementById('booker-name').value.trim();
+            var org = document.getElementById('booker-org').value.trim();
+            var purpose = document.getElementById('booker-purpose').value.trim();
 
             if (!name || !org || !purpose) {
                 alert("Please fill out all meeting parameters to initialize Outlook booking.");
                 return;
             }
 
-            const recipient = "nripendusharma@outlook.com";
-            const subject = encodeURIComponent(`Meeting Request: ${name} (${org}) & Nripendu Sharma`);
+            var recipient = "nripendusharma@outlook.com";
+            var subject = encodeURIComponent("Meeting Request: " + name + " (" + org + ") & Nripendu Sharma");
             
-            const emailBody = `Hi Nripendu,
+            var emailBody = "Hi Nripendu,\n\n" +
+                            "I would like to book a call with you to discuss product capabilities, experience, or potential PM/AI Builder positions.\n\n" +
+                            "Booking Details:\n" +
+                            "------------------------------------------\n" +
+                            "Date: " + selectedDateStrFormatted + "\n" +
+                            "Time: " + selectedTimeSlot + " (11:00 AM - 04:00 PM Availability)\n" +
+                            "Booker: " + name + "\n" +
+                            "Organization: " + org + "\n" +
+                            "------------------------------------------\n\n" +
+                            "Message / Discussion Context:\n" +
+                            purpose + "\n\n" +
+                            "Please let me know if this slot is confirmed. Looking forward to our call!";
 
-I would like to book a call with you to discuss product capabilities, experience, or potential PM/AI Builder positions.
-
-Booking Details:
-------------------------------------------
-Date: ${selectedDateStrFormatted}
-Time: ${selectedTimeSlot} (11:00 AM - 04:00 PM Availability)
-Booker: ${name}
-Organization: ${org}
-------------------------------------------
-
-Message / Discussion Context:
-${purpose}
-
-Please let me know if this slot is confirmed. Looking forward to our call!`;
-
-            const mailtoUrl = `mailto:${recipient}?subject=${subject}&body=${encodeURIComponent(emailBody)}`;
+            var mailtoUrl = "mailto:" + recipient + "?subject=" + subject + "&body=" + encodeURIComponent(emailBody);
             window.location.href = mailtoUrl;
         }
 
         // Chart.js Initialization
         function initCharts() {
             Chart.defaults.font.family = "'JetBrains Mono', monospace";
-            const isDark = document.documentElement.classList.contains('dark');
-            const textColor = isDark ? '#9ca3af' : '#4b5563';
-            const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+            var isDark = document.documentElement.classList.contains('dark');
+            var textColor = isDark ? '#9ca3af' : '#4b5563';
+            var gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
             
             // Determine font size based on screen width
-            const isMobile = window.innerWidth < 640;
-            const chartFontSize = isMobile ? 10 : 12;
+            var isMobile = window.innerWidth < 640;
+            var chartFontSize = isMobile ? 10 : 12;
             Chart.defaults.font.size = chartFontSize;
             
             // Safe Chart Destruction to prevent "Canvas in use" errors on hot re-renders
@@ -1755,9 +1755,9 @@ Please let me know if this slot is confirmed. Looking forward to our call!`;
             }
 
             // Chart 1: Customer Retention
-            const canvasRetention = document.getElementById('retentionChart');
+            var canvasRetention = document.getElementById('retentionChart');
             if (canvasRetention) {
-                const ctxRetention = canvasRetention.getContext('2d');
+                var ctxRetention = canvasRetention.getContext('2d');
                 retentionChartInstance = new Chart(ctxRetention, {
                     type: 'bar',
                     data: {
@@ -1783,9 +1783,9 @@ Please let me know if this slot is confirmed. Looking forward to our call!`;
             }
 
             // Chart 2: Adoption Curve UPPCL
-            const canvasAdoption = document.getElementById('adoptionChart');
+            var canvasAdoption = document.getElementById('adoptionChart');
             if (canvasAdoption) {
-                const ctxAdoption = canvasAdoption.getContext('2d');
+                var ctxAdoption = canvasAdoption.getContext('2d');
                 adoptionChartInstance = new Chart(ctxAdoption, {
                     type: 'doughnut',
                     data: {
@@ -1820,17 +1820,17 @@ Please let me know if this slot is confirmed. Looking forward to our call!`;
         }
 
         // Handle window resize to re-init charts with proper mobile font sizes
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', function() {
             initCharts();
         });
 
         // AI Chat Assistant Logic
-        let isChatOpen = false;
-        const apiKey = ""; // Set dynamically by the runtime environment
+        var isChatOpen = false;
+        var apiKey = ""; // Set dynamically by the runtime environment
 
         function toggleChat() {
-            const windowEl = document.getElementById('ai-chat-window');
-            const toggleBtn = document.getElementById('chat-toggle-btn');
+            var windowEl = document.getElementById('ai-chat-window');
+            var toggleBtn = document.getElementById('chat-toggle-btn');
             if (!windowEl || !toggleBtn) return;
             
             isChatOpen = !isChatOpen;
@@ -1842,38 +1842,37 @@ Please let me know if this slot is confirmed. Looking forward to our call!`;
                 toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
             } else {
                 windowEl.classList.add('translate-y-4', 'opacity-0', 'scale-95');
-                setTimeout(() => { windowEl.style.display = 'none'; }, 300);
+                setTimeout(function() { windowEl.style.display = 'none'; }, 300);
                 toggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
             }
         }
 
         function appendMessage(role, text) {
-            const msgArea = document.getElementById('ai-chat-messages');
+            var msgArea = document.getElementById('ai-chat-messages');
             if (!msgArea) return;
-            const isUser = role === 'user';
+            var isUser = role === 'user';
             
-            const userStyles = document.documentElement.classList.contains('dark') ? 
+            var userStyles = document.documentElement.classList.contains('dark') ? 
                 'bg-gray-800 text-white border border-gray-700' : 'bg-gray-900 text-white shadow-sm';
             
-            const aiStyles = document.documentElement.classList.contains('dark') ? 
+            var aiStyles = document.documentElement.classList.contains('dark') ? 
                 'bg-gray-900 text-gray-200 border border-gray-800' : 'bg-gray-100 text-gray-800 border border-gray-200 shadow-sm';
             
-            const userAvatar = document.documentElement.classList.contains('dark') ? 
+            var userAvatar = document.documentElement.classList.contains('dark') ? 
                 'bg-gray-700' : 'bg-gray-900';
 
-            const aiAvatar = document.documentElement.classList.contains('dark') ? 
+            var aiAvatar = document.documentElement.classList.contains('dark') ? 
                 'bg-ai-500/20 border border-ai-500/50 text-ai-400' : 'bg-ai-100 border border-ai-200 text-ai-700';
 
-            const msgHTML = `
-                <div class="flex gap-2 sm:gap-3 ${isUser ? 'flex-row-reverse' : ''}">
-                    <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full ${isUser ? userAvatar : aiAvatar} font-mono font-bold text-[8px] sm:text-[10px] flex-shrink-0 flex items-center justify-center text-white shadow-sm">
-                        ${isUser ? 'U' : 'AI'}
-                    </div>
-                    <div class="${isUser ? userStyles + ' rounded-tr-none' : aiStyles + ' rounded-tl-none'} p-2 sm:p-3 rounded-lg text-xs sm:text-sm">
-                        ${text}
-                    </div>
-                </div>
-            `;
+            var msgHTML = 
+                '<div class="flex gap-2 sm:gap-3 ' + (isUser ? 'flex-row-reverse' : '') + '">' +
+                    '<div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full ' + (isUser ? userAvatar : aiAvatar) + ' font-mono font-bold text-[8px] sm:text-[10px] flex-shrink-0 flex items-center justify-center text-white shadow-sm">' +
+                        (isUser ? 'U' : 'AI') +
+                    '</div>' +
+                    '<div class="' + (isUser ? userStyles + ' rounded-tr-none' : aiStyles + ' rounded-tl-none') + ' p-2 sm:p-3 rounded-lg text-xs sm:text-sm">' +
+                        text +
+                    '</div>' +
+                '</div>';
             
             msgArea.insertAdjacentHTML('beforeend', msgHTML);
             msgArea.scrollTop = msgArea.scrollHeight;
@@ -1881,35 +1880,35 @@ Please let me know if this slot is confirmed. Looking forward to our call!`;
 
         async function handleChatSubmit(e) {
             e.preventDefault();
-            const inputEl = document.getElementById('ai-chat-input');
+            var inputEl = document.getElementById('ai-chat-input');
             if (!inputEl) return;
-            const query = inputEl.value.trim();
+            var query = inputEl.value.trim();
             if (!query) return;
 
             appendMessage('user', query);
             inputEl.value = '';
             inputEl.disabled = true;
             
-            const msgArea = document.getElementById('ai-chat-messages');
-            const loadingId = 'loading-' + Date.now();
+            var msgArea = document.getElementById('ai-chat-messages');
+            var loadingId = 'loading-' + Date.now();
             if (msgArea) {
-                msgArea.insertAdjacentHTML('beforeend', `<div id="${loadingId}" class="text-[10px] sm:text-xs text-gray-400 ml-8 sm:ml-9 font-mono">Thinking...</div>`);
+                msgArea.insertAdjacentHTML('beforeend', '<div id="' + loadingId + '" class="text-[10px] sm:text-xs text-gray-400 ml-8 sm:ml-9 font-mono">Thinking...</div>');
                 msgArea.scrollTop = msgArea.scrollHeight;
             }
 
-            const systemPrompt = `You are a digital twin AI assistant for Nripendu Sharma, an AI Product Builder and Senior Product Manager.
-            Your job is to answer questions from recruiters and hiring managers based strictly on his resume:
-            - He works as a Product Consultant at UPPCL (GovTech). He drove a ₹58 Cr+ ARR uplift, shipped an MVP to 8K+ field officers, unlocked ₹415 Cr funding via high-fidelity prototyping.
-            - He was a PM at Talview (HRTech) from 2022-2023. Lifted NPS by +29, cut time-to-value by 40%, and served 100K+ candidates globally achieving WCAG compliance.
-            - He was a PM at Magnus IT Solutions (2018-2022). Turned around a DMS system, increasing CRR from 15% to 45% and reduced turnaround time by 60%.
-            - Education: MBA from NMIMS, BE (Civil) from Ramaiah Institute.
-            - Skills: RAG pipelines, MCP, LLM fine-tuning, Agentic AI, LangChain, A/B Testing.
-            Be concise, professional, confident, and highlight his business impact (revenue/metrics) and technical AI depth. Keep responses short (2-3 sentences max).`;
+            var systemPrompt = "You are a digital twin AI assistant for Nripendu Sharma, an AI Product Builder and Senior Product Manager.\n" +
+            "Your job is to answer questions from recruiters and hiring managers based strictly on his resume:\n" +
+            "- He works as a Product Consultant at UPPCL (GovTech). He drove a ₹58 Cr+ ARR uplift, shipped an MVP to 8K+ field officers, unlocked ₹415 Cr funding via high-fidelity prototyping.\n" +
+            "- He was a PM at Talview (HRTech) from 2022-2023. Lifted NPS by +29, cut time-to-value by 40%, and served 100K+ candidates globally achieving WCAG compliance.\n" +
+            "- He was a PM at Magnus IT Solutions (2018-2022). Turned around a DMS system, increasing CRR from 15% to 45% and reduced turnaround time by 60%.\n" +
+            "- Education: MBA from NMIMS, BE (Civil) from Ramaiah Institute.\n" +
+            "- Skills: RAG pipelines, MCP, LLM fine-tuning, Agentic AI, LangChain, A/B Testing.\n" +
+            "Be concise, professional, confident, and highlight his business impact (revenue/metrics) and technical AI depth. Keep responses short (2-3 sentences max).";
 
             if (!apiKey) {
                 // If API Key is empty, fallback gracefully with an automated assistant description
-                setTimeout(() => {
-                    const loadingEl = document.getElementById(loadingId);
+                setTimeout(function() {
+                    var loadingEl = document.getElementById(loadingId);
                     if (loadingEl) loadingEl.remove();
                     appendMessage('ai', "I am currently running in demo mode. Nripendu has drove ₹58 Cr+ in ARR scaling operational GovTech dashboards, cut Candidate Time-To-Value by 40% at Talview, and is available for Group/Senior PM roles. Let's arrange a call!");
                     inputEl.disabled = false;
@@ -1918,7 +1917,7 @@ Please let me know if this slot is confirmed. Looking forward to our call!`;
             }
 
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                var response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=" + apiKey, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1927,19 +1926,19 @@ Please let me know if this slot is confirmed. Looking forward to our call!`;
                     })
                 });
 
-                const loadingEl = document.getElementById(loadingId);
+                var loadingEl = document.getElementById(loadingId);
                 if (loadingEl) loadingEl.remove();
                 
                 if (response.ok) {
-                    const data = await response.json();
-                    const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Thank you for reaching out! Please connect with Nripendu directly on LinkedIn for immediate details.";
+                    var data = await response.json();
+                    var aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Thank you for reaching out! Please connect with Nripendu directly on LinkedIn for immediate details.";
                     appendMessage('ai', aiText);
                 } else {
                     appendMessage('ai', "I experienced a temporary communication hiccup. Please reach Nripendu directly via nripendusharma@outlook.com.");
                 }
             } catch (error) {
-                const loadingEl = document.getElementById(loadingId);
-                if (loadingEl) loadingEl.remove();
+                var loadingElErr = document.getElementById(loadingId);
+                if (loadingElErr) loadingElErr.remove();
                 appendMessage('ai', "Connection failed. Please feel free to reach out via LinkedIn.");
             } finally {
                 inputEl.disabled = false;
