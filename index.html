@@ -23,12 +23,15 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Custom Interactive Cursor Styles */
+        
+        /* High-Visibility Interactive Custom Cursor Framework */
         .custom-cursor {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background-color: #2dd4bf;
             position: fixed;
+            top: 0;
+            left: 0;
             transform: translate(-50%, -50%);
             border-radius: 50%;
             pointer-events: none;
@@ -36,30 +39,32 @@
             transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
         .cursor-glow {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(45, 212, 191, 0.05) 0%, rgba(59, 130, 246, 0.02) 50%, transparent 100%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(45, 212, 191, 0.12) 0%, rgba(59, 130, 246, 0.04) 50%, transparent 70%);
             position: fixed;
+            top: 0;
+            left: 0;
             transform: translate(-50%, -50%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 10;
             will-change: transform;
         }
-        /* Hover states for interactive items */
+        /* Scale dynamic hover state matrix over navigation/action links */
         .interactive-hover .custom-cursor {
-            width: 24px;
-            height: 24px;
-            background-color: rgba(45, 212, 191, 0.2);
-            border: 1px solid #2dd4bf;
+            width: 28px;
+            height: 28px;
+            background-color: rgba(45, 212, 191, 0.15);
+            border: 2px solid #2dd4bf;
         }
     </style>
 </head>
 <body class="bg-[#0b0f19] text-slate-300 min-h-screen selection:bg-teal-500 selection:text-white antialiased overflow-x-hidden">
 
-    <!-- Active Ambient Glow Windows -->
-    <div id="cursor-glow" class="cursor-glow hidden md:block"></div>
-    <div id="custom-cursor" class="custom-cursor hidden md:block"></div>
+    <!-- Active Tracking Ambient Glow Windows -->
+    <div id="cursor-glow" class="cursor-glow"></div>
+    <div id="custom-cursor" class="custom-cursor"></div>
 
     <!-- Navigation -->
     <nav class="sticky top-0 z-40 bg-[#0b0f19]/80 backdrop-blur-md border-b border-slate-900">
@@ -249,22 +254,24 @@
 
     <!-- Interactive Scripts & Cursor Control Logic -->
     <script>
-        // Custom Cursor Logic
+        // Custom Cursor Movement Mechanics
         const cursor = document.getElementById('custom-cursor');
         const glow = document.getElementById('cursor-glow');
         
-        if (window.innerWidth > 768) {
-            window.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                glow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-            });
+        window.addEventListener('mousemove', (e) => {
+            // Unlocked mouse coordinate mapping across all screens
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Smoothed hardware-accelerated fluid radial backdrop tracing
+            glow.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+        });
 
-            document.querySelectorAll('a, button, [onclick]').forEach(item => {
-                item.addEventListener('mouseenter', () => document.body.classList.add('interactive-hover'));
-                item.addEventListener('mouseleave', () => document.body.classList.remove('interactive-hover'));
-            });
-        }
+        // Toggle state filters when entering standard anchor or button tags
+        document.querySelectorAll('a, button, [onclick]').forEach(item => {
+            item.addEventListener('mouseenter', () => document.body.classList.add('interactive-hover'));
+            item.addEventListener('mouseleave', () => document.body.classList.remove('interactive-hover'));
+        });
 
         // Modal Content Configuration Data Layers
         const caseStudyData = {
