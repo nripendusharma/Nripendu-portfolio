@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Consultant Portfolio</title>
     
+    <!-- Self-Contained SVG Favicon (White Background + Action Blue NS Text) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='white'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-family='system-ui, sans-serif' font-weight='800' font-size='50' fill='%232563eb'>NS</text></svg>">
 
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,9 +57,11 @@
 </head>
 <body class="bg-[#0b0f19] text-slate-300 min-h-screen selection:bg-teal-500 selection:text-white antialiased overflow-x-hidden">
 
+    <!-- Active Ambient Glow Windows -->
     <div id="cursor-glow" class="cursor-glow hidden md:block"></div>
     <div id="custom-cursor" class="custom-cursor hidden md:block"></div>
 
+    <!-- Navigation -->
     <nav class="sticky top-0 z-40 bg-[#0b0f19]/80 backdrop-blur-md border-b border-slate-900">
         <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="#" class="font-bold text-lg text-white tracking-tight">PC<span class="text-teal-400">.</span></a>
@@ -68,11 +72,12 @@
                     Substack 
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 </a>
-                <a href="#contact" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all shadow-lg shadow-blue-600/10">Send the Invitation</a>
+                <a href="https://calendly.com/nripendusharma" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all shadow-lg shadow-blue-600/10">Send the Invitation</a>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <header class="max-w-6xl mx-auto px-6 pt-24 pb-20 text-center lg:text-left lg:flex lg:items-center lg:justify-between gap-12 relative z-20">
         <div class="max-w-2xl">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-teal-500/10 text-teal-400 border border-teal-500/20 mb-6">
@@ -85,7 +90,7 @@
                 Building high-impact core products and agentic workflows. Specializing in conversion optimizations, ecosystem pivots, and shipping intelligent automation models that map directly to enterprise business growth.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <a href="#contact" class="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-center transition-all shadow-lg shadow-blue-600/20">Send the Invitation</a>
+                <a href="https://calendly.com/nripendusharma" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-center transition-all shadow-lg shadow-blue-600/20">Send the Invitation</a>
                 <a href="#case-studies" class="w-full sm:w-auto px-6 py-3 bg-slate-900 hover:bg-slate-800 text-slate-200 font-medium rounded-xl text-center border border-slate-800 transition-all">Explore Case Studies</a>
             </div>
         </div>
@@ -95,6 +100,7 @@
         </div>
     </header>
 
+    <!-- Core Experience & Case Studies Section -->
     <main class="max-w-6xl mx-auto px-6 py-12 relative z-20">
         
         <section id="case-studies" class="mb-32">
@@ -103,8 +109,10 @@
                 <p class="text-slate-400 mt-2">Deep-dive breakdowns of core features, architectural pivots, and core metric ownership.</p>
             </div>
 
+            <!-- Balanced heights layout grid container -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                 
+                <!-- Card 1: Govtech Enforcement -->
                 <div class="bg-slate-900/60 backdrop-blur-sm border border-slate-800/80 rounded-2xl p-6 flex flex-col h-full transition-all hover:border-slate-700 group">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -127,6 +135,7 @@
                     </div>
                 </div>
 
+                <!-- Card 2: Candidate UX -->
                 <div class="bg-slate-900/60 backdrop-blur-sm border border-slate-800/80 rounded-2xl p-6 flex flex-col h-full transition-all hover:border-slate-700 group">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -149,6 +158,7 @@
                     </div>
                 </div>
 
+                <!-- Card 3: DMS Pivot -->
                 <div class="bg-slate-900/60 backdrop-blur-sm border border-slate-800/80 rounded-2xl p-6 flex flex-col h-full transition-all hover:border-slate-700 group">
                     <div>
                         <div class="flex items-center justify-between mb-4">
@@ -174,6 +184,7 @@
             </div>
         </section>
 
+        <!-- Technical & AI Systems Section -->
         <section id="ai-products" class="mb-32">
             <div class="mb-12">
                 <h2 class="text-3xl font-bold text-white tracking-tight">Agentic AI Workflows & Architecture</h2>
@@ -205,44 +216,38 @@
             </div>
         </section>
 
-        <section id="contact" class="border-t border-slate-900 pt-20 pb-12">
-            <div class="max-w-4xl mx-auto px-6">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold text-white tracking-tight mb-4">Send the Invitation</h2>
-                    <p class="text-slate-400 max-w-xl mx-auto text-sm leading-relaxed">
-                        Select an available timeslot directly on the calendar interface below. Once finalized, meeting invites and links sync to all platforms instantly.
-                    </p>
-                </div>
-
-                <div id="booking-success-message" class="hidden max-w-2xl mx-auto mb-6 p-4 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center gap-3 text-teal-400 text-sm animate-fadeIn">
-                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <div>
-                        <span class="font-bold block text-white">Invitation Sent!</span>
-                        The strategy slot has been secured. Confirmations and room links are synced across platforms.
-                    </div>
-                </div>
-
-                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-2 relative overflow-hidden min-h-[650px] shadow-2xl shadow-black/40">
-                    <div class="calendly-inline-widget w-full h-[650px]" data-url="https://calendly.com/nripendusharma?hide_landing_page_details=1&hide_gdpr_banner=1" style="min-width:320px;"></div>
-                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-                </div>
+        <!-- CTA / Clean Booking Section Redirecting to Calendly Link -->
+        <section id="contact" class="border-t border-slate-900 pt-20 pb-12 text-center">
+            <div class="max-w-xl mx-auto">
+                <h2 class="text-3xl font-bold text-white tracking-tight mb-4">Send the Invitation</h2>
+                <p class="text-slate-400 mb-8 leading-relaxed text-sm">
+                    Looking to optimize complex funnel interfaces, validate agentic architecture parameters, or structure your technical product pipelines? Let's connect.
+                </p>
+                <a href="https://calendly.com/nripendusharma" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-xl shadow-blue-600/10 transition-all">
+                    Send the Invitation
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
             </div>
         </section>
 
     </main>
 
+    <!-- Footer -->
     <footer class="border-t border-slate-900 bg-[#070a12] py-8 text-center text-xs text-slate-600 relative z-20">
         <p>&copy; 2026 Product Consultant Portfolio. Built for high-growth deployment.</p>
     </footer>
 
+    <!-- Case Study Deep-Dive Modal Component -->
     <div id="caseStudyModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-2xl max-h-[85vh] overflow-y-auto p-8 relative">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-xl font-bold">&times;</button>
             <div id="modalContent">
-                </div>
+                <!-- Injected dynamically via JS below -->
+            </div>
         </div>
     </div>
 
+    <!-- Interactive Scripts & Cursor Control Logic -->
     <script>
         // Custom Cursor Logic
         const cursor = document.getElementById('custom-cursor');
@@ -260,16 +265,6 @@
                 item.addEventListener('mouseleave', () => document.body.classList.remove('interactive-hover'));
             });
         }
-
-        // Native Listener Capturing Calendly Frame Selection Events
-        window.addEventListener('message', function(e) {
-            if (e.data.event && e.data.event.indexOf('calendly.event_scheduled') !== -1) {
-                // Instantly reveal layout level success alert banner
-                document.getElementById('booking-success-message').classList.remove('hidden');
-                // Scroll container focus smoothly to banner level views
-                document.getElementById('booking-success-message').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
 
         // Modal Content Configuration Data Layers
         const caseStudyData = {
